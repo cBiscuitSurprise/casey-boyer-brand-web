@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 
-import 'components/home.dart';
+import 'pages/home.dart';
 import 'widgets/toggle_switch/bloc/toggle_switch_widget_bloc.dart';
 
 void main() {

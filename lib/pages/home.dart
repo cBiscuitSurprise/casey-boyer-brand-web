@@ -1,5 +1,6 @@
 import 'package:casey_boyer_brand_web/components/text/unordered_list_item.dart';
 import 'package:casey_boyer_brand_web/components/themed_icon_button.dart';
+import 'package:casey_boyer_brand_web/pages/projects/brand_site.dart';
 import 'package:casey_boyer_brand_web/widgets/toggle_switch/toggle_switch_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -108,6 +109,14 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ]),
                 ),
+                const FractionallySizedBox(
+                  widthFactor: 0.7,
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.all(16),
+                    child: Divider(),
+                  ),
+                ),
+                ProjectBrandSite(),
               ]),
             ),
           )

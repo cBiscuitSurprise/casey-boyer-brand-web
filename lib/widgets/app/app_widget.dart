@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../components/home.dart';
+import '../../pages/home.dart';
 import '../toggle_switch/bloc/toggle_switch_widget_bloc.dart';
 import 'bloc/app_widget_bloc.dart';
 
