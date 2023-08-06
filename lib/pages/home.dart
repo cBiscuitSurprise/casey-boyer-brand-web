@@ -17,6 +17,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
+      resizeToAvoidBottomInset: false,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
