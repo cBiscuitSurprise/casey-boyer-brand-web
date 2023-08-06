@@ -129,17 +129,7 @@ class MyHomePage extends StatelessWidget {
   Widget buildContactUsDialog(context) {
     return BlocProvider<ContactUsWidgetBloc>(
       create: (context) => ContactUsWidgetBloc(),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600, maxHeight: 400),
-          child: Dialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-            elevation: 16,
-            child: const ContactUsWidget(),
-          ),
-        ),
-      ),
+      child: const ContactUsWidget(),
     );
   }
 }

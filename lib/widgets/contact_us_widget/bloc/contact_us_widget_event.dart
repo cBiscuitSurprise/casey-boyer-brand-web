@@ -7,17 +7,20 @@ class ContactUsSubmitEvent extends ContactUsWidgetEvent {
   String? name;
   String? email;
   String? phone;
+  String? message;
 
   ContactUsSubmitEvent({
     required this.name,
     this.email,
     this.phone,
+    this.message,
   });
 
   Map<String, String?> toJson() => {
         'name': name,
         'email': email,
         'phone': phone,
+        'message': message,
       };
 }
 

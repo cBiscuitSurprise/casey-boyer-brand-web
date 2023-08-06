@@ -90,6 +90,8 @@ class ProjectBrandSite extends StatelessWidget {
     dashboardFrame.src = CLOUDWATCH_DASHBOARD;
     dashboardFrame.style.border = 'none';
     dashboardFrame.style.overflow = 'hidden !important';
+    dashboardFrame.style.height = "100%";
+    dashboardFrame.style.width = "100%";
 
     // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(

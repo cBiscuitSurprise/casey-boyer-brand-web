@@ -21,10 +21,10 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Color.fromARGB(255, 204, 213, 174),
-          secondary: Color.fromARGB(255, 233, 237, 201),
-          tertiary: Color.fromARGB(255, 250, 237, 205),
-          background: Color.fromARGB(255, 254, 250, 224),
+          primary: const Color.fromARGB(255, 40, 54, 24),
+          secondary: const Color.fromARGB(255, 233, 237, 201),
+          tertiary: const Color.fromARGB(255, 250, 237, 205),
+          background: const Color.fromARGB(255, 254, 250, 224),
         ),
       ),
       darkTheme: ThemeData(
@@ -32,12 +32,12 @@ class AppWidget extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
         colorScheme: ColorScheme.fromSwatch().copyWith(
           brightness: Brightness.dark,
-          primary: Color.fromARGB(255, 254, 250, 224),
-          onPrimary: Color.fromARGB(255, 96, 108, 56),
-          secondary: Color.fromARGB(255, 96, 108, 56),
-          tertiary: Color.fromARGB(255, 221, 161, 94),
-          background: Color.fromARGB(255, 40, 54, 24),
-          onBackground: Color.fromARGB(255, 254, 250, 224),
+          primary: const Color.fromARGB(255, 254, 250, 224),
+          onPrimary: const Color.fromARGB(255, 96, 108, 56),
+          secondary: const Color.fromARGB(255, 96, 108, 56),
+          tertiary: const Color.fromARGB(255, 221, 161, 94),
+          background: const Color.fromARGB(255, 40, 54, 24),
+          onBackground: const Color.fromARGB(255, 254, 250, 224),
         ),
       ),
       themeMode: state.isDarkMode ? ThemeMode.dark : ThemeMode.light,
