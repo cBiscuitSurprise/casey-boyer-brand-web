@@ -1,4 +1,5 @@
 import 'package:casey_boyer_brand_web/components/text/unordered_list_item.dart';
+import 'package:casey_boyer_brand_web/components/themed_icon_button.dart';
 import 'package:casey_boyer_brand_web/widgets/toggle_switch/toggle_switch_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,6 +69,23 @@ class MyHomePage extends StatelessWidget {
                     "Software Developer",
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 8, bottom: 8),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ThemedIconButton(
+                          url:
+                              "https://www.linkedin.com/in/casey-boyer-engineer/",
+                          imagePath: "images/icons/LI-In-Bug.png",
+                        ),
+                        ThemedIconButton(
+                          url: "https://github.com/cBiscuitSurprise",
+                          imagePath: "images/icons/github-mark.png",
+                          darkImagePath: "images/icons/github-mark-white.png",
+                        ),
+                      ]),
                 ),
                 const FractionallySizedBox(
                   widthFactor: 0.6,
