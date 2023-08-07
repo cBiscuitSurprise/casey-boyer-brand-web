@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ContactUsWidgetSuccess extends StatelessWidget {
+class ContactUsWidgetError extends StatelessWidget {
   final EdgeInsets _padding = const EdgeInsets.only(
     top: 12,
     bottom: 16,
@@ -8,7 +8,7 @@ class ContactUsWidgetSuccess extends StatelessWidget {
     left: 24,
   );
 
-  const ContactUsWidgetSuccess({
+  const ContactUsWidgetError({
     Key? key,
   }) : super(key: key);
 
@@ -17,7 +17,7 @@ class ContactUsWidgetSuccess extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: SimpleDialog(
-        title: const Text("Thank you!"),
+        title: const Text("Uh oh!"),
         children: [
           buildMessage(context),
           buildButtons(context),
@@ -37,7 +37,7 @@ class ContactUsWidgetSuccess extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(left: 8),
               child: Text(
-                  "Thank you for submitting your info! I'll get back to you as soon as I can!"),
+                  "Looks like my API isn't work correctly. I'll get notified this didn't work, please come back and try again later. :("),
             ),
           ),
         ],

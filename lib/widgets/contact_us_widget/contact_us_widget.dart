@@ -1,7 +1,7 @@
+import 'package:casey_boyer_brand_web/widgets/contact_us_widget/contact_us_widget_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../app_error_widget/app_error_widget.dart';
 import 'bloc/contact_us_widget_bloc.dart';
 import 'contact_us_widget_form.dart';
 import 'contact_us_widget_loading.dart';
@@ -22,11 +22,11 @@ class ContactUsWidget extends StatelessWidget {
     if (state.status.isForm) {
       return ContactUsWidgetForm();
     } else if (state.status.isSuccess) {
-      return ContactUsWidgetSuccess();
+      return const ContactUsWidgetSuccess();
     } else if (state.status.isLoading) {
       return const ContactUsWidgetLoading();
     } else if (state.status.isError) {
-      return AppErrorWidget(message: state.error);
+      return const ContactUsWidgetError();
     } else {
       return const SizedBox();
     }

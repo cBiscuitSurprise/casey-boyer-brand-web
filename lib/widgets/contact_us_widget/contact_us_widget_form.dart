@@ -62,6 +62,7 @@ class ContactUsWidgetForm extends StatelessWidget {
       padding: _padding,
       child: TextFormField(
         controller: _email,
+        keyboardType: TextInputType.emailAddress,
         validator: (value) {
           if (!(value == null || value.isEmpty)) {
             if (!isEmail(value)) {
@@ -82,6 +83,7 @@ class ContactUsWidgetForm extends StatelessWidget {
       padding: _padding,
       child: TextFormField(
         controller: _phone,
+        keyboardType: TextInputType.phone,
         decoration: const InputDecoration(
           labelText: 'Phone number',
         ),
