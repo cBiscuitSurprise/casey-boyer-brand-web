@@ -1,6 +1,8 @@
 import 'package:casey_boyer_brand_web/components/text/unordered_list_item.dart';
 import 'package:casey_boyer_brand_web/components/themed_icon_button.dart';
+import 'package:casey_boyer_brand_web/pages/app_scaffold.dart';
 import 'package:casey_boyer_brand_web/pages/projects/brand_site.dart';
+import 'package:casey_boyer_brand_web/pages/projects/main.dart';
 import 'package:casey_boyer_brand_web/widgets/toggle_switch/toggle_switch_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,10 +17,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      resizeToAvoidBottomInset: false,
-      body: Column(
+    return AppScaffold(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Padding(
@@ -30,6 +30,13 @@ class MyHomePage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
               ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const Projects(),
+                    ));
+                  },
+                  child: const Text("Projects")),
               const ToggleSwitchWidget(),
               ElevatedButton(
                 onPressed: () {
