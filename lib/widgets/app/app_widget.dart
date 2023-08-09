@@ -22,6 +22,7 @@ class AppWidget extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color.fromARGB(255, 40, 54, 24),
           secondary: const Color.fromARGB(255, 233, 237, 201),
+          onSecondary: const Color.fromARGB(255, 40, 54, 24),
           tertiary: const Color.fromARGB(255, 250, 237, 205),
           background: const Color.fromARGB(255, 254, 250, 224),
         ),

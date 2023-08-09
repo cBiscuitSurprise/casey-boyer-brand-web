@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Portfolio Site (this site)",
+    "shortDescription": "Demonstrates AWS, Flutter, and Python.",
+    "longDescription": "projects/brand_site.md",
+    "tags": [
+      "AWS",
+      "Flutter",
+      "Python"
+    ]
+  },
+  {
+    "name": "Project 2",
+    "shortDescription": "TBD: Another project that demonstrates my abilities",
+    "longDescription": "projects/project_placeholder.md",
+    "tags": [
+      "Go",
+      "Algorithms",
+      "Data Structures"
+    ]
+  },
+  {
+    "name": "Project 3",
+    "shortDescription": "TBD: Another project that demonstrates my abilities",
+    "longDescription": "projects/project_placeholder.md",
+    "tags": [
+      "C#",
+      "Bazel",
+      "Kubernetes"
+    ]
+  }
+]

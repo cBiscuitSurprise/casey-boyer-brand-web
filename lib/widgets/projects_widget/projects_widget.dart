@@ -1,6 +1,10 @@
+import 'package:casey_boyer_brand_web/components/app_bar.dart';
+import 'package:casey_boyer_brand_web/pages/routes.dart';
+import 'package:casey_boyer_brand_web/util/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../model/project.dart';
 import '../../pages/app_scaffold.dart';
@@ -24,15 +28,17 @@ class ProjectsWidget extends StatelessWidget {
 
     return AppScaffold(
       drawer: (desktopMode) ? null : buildDrawer(context, state, desktopMode),
-      appBar: AppBar(
-        title: const Text("app bar"),
-        automaticallyImplyLeading: !desktopMode,
+      appBar: AppBarComponent(
+        title: "Projects",
+        navigations: buildRoutes(current: PageRoutes.projects),
       ),
       child: Row(
         children: [
           (desktopMode) ? buildDrawer(context, state, desktopMode) : null,
           Expanded(
-            child: buildProjectOverview(context, state),
+            child: Center(
+              child: buildProjectOverview(context, state),
+            ),
           ),
         ].whereType<Widget>().toList(), // filter `null`
       ),
@@ -71,7 +77,21 @@ class ProjectsWidget extends StatelessWidget {
         content = const Text("bad state");
     }
     return Drawer(
-      child: content,
+      child: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          stops: [0.0, 0.2, 0.8, 1.0],
+          colors: [
+            lighten(Theme.of(context).colorScheme.secondary, 2),
+            darken(Theme.of(context).colorScheme.secondary, 2),
+            darken(Theme.of(context).colorScheme.secondary, 2),
+            lighten(Theme.of(context).colorScheme.secondary, 2),
+          ],
+        )),
+        child: content,
+      ),
     );
   }
 
@@ -79,8 +99,16 @@ class ProjectsWidget extends StatelessWidget {
     if (state.index == null) {
       return const Center(child: CircularProgressIndicator());
     } else {
-      return Markdown(
-        data: state.projects[state.index!].longDescription ?? "",
+      return ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 800),
+        child: Markdown(
+          data: state.projects[state.index!].longDescription ?? "",
+          onTapLink: (text, url, title) {
+            if (url != null) {
+              launchUrl(Uri.parse(url));
+            }
+          },
+        ),
       );
     }
   }

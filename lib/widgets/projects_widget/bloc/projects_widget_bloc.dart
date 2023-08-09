@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 
@@ -7,6 +11,17 @@ part 'projects_widget_event.dart';
 part 'projects_widget_state.dart';
 
 Logger logger = Logger('contact_us_widget_bloc.dart');
+
+Future<List<Project>> loadContentFromAssets() async {
+  String configString = await rootBundle.loadString("content/projects.json");
+  List config = json.decode(configString);
+
+  return await Future.wait(config.map<Future<Project>>((i) async {
+    i['longDescription'] =
+        await rootBundle.loadString("content/${i['longDescription']}");
+    return Project.fromJson(i);
+  }).toList());
+}
 
 class ProjectsWidgetBloc
     extends Bloc<ProjectsWidgetEvent, ProjectsWidgetState> {
@@ -35,18 +50,7 @@ class ProjectsWidgetBloc
     emit(state.copyWith(status: ProjectsWidgetStatus.loading));
 
     // do reload
-    final List<Project> projects = [
-      Project(
-        name: "Project 1",
-        shortDescription: "Some short blurb about project 1",
-        longDescription: "# Markdown formated\ntext about project 1",
-      ),
-      Project(
-        name: "Project 2",
-        shortDescription: "Some short blurb about project 2",
-        longDescription: "# Markdown formated\ntext about project 2",
-      ),
-    ];
+    final List<Project> projects = await loadContentFromAssets();
 
     final int? index = (projects.isNotEmpty) ? 0 : null;
 

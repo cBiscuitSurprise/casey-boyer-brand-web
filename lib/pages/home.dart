@@ -1,14 +1,10 @@
 import 'package:casey_boyer_brand_web/components/text/unordered_list_item.dart';
 import 'package:casey_boyer_brand_web/components/themed_icon_button.dart';
 import 'package:casey_boyer_brand_web/pages/app_scaffold.dart';
-import 'package:casey_boyer_brand_web/pages/projects/brand_site.dart';
-import 'package:casey_boyer_brand_web/pages/projects/main.dart';
-import 'package:casey_boyer_brand_web/widgets/toggle_switch/toggle_switch_widget.dart';
+import 'package:casey_boyer_brand_web/pages/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../widgets/contact_us_widget/bloc/contact_us_widget_bloc.dart';
-import '../widgets/contact_us_widget/contact_us_widget.dart';
+import '../components/app_bar.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key, required this.title});
@@ -18,39 +14,18 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+      appBar: AppBarComponent(
+        title: title,
+        navigations: buildRoutes(),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-            child: Row(children: [
-              Expanded(
-                child: Text(
-                  "Casey Boyer",
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-              ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const Projects(),
-                    ));
-                  },
-                  child: const Text("Projects")),
-              const ToggleSwitchWidget(),
-              ElevatedButton(
-                onPressed: () {
-                  showDialog(context: context, builder: buildContactUsDialog);
-                },
-                child: const Text("Contact"),
-              ),
-            ]),
-          ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(top: 8, bottom: 16),
+                  padding: const EdgeInsets.only(top: 32, bottom: 16),
                   child: Container(
                     width: 150,
                     height: 150,
@@ -117,26 +92,11 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ]),
                 ),
-                const FractionallySizedBox(
-                  widthFactor: 0.7,
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.all(16),
-                    child: Divider(),
-                  ),
-                ),
-                ProjectBrandSite(),
               ]),
             ),
           )
         ],
       ),
-    );
-  }
-
-  Widget buildContactUsDialog(context) {
-    return BlocProvider<ContactUsWidgetBloc>(
-      create: (context) => ContactUsWidgetBloc(),
-      child: const ContactUsWidget(),
     );
   }
 }
