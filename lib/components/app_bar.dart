@@ -25,6 +25,7 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
       ),
       backgroundColor: Theme.of(context).colorScheme.secondary,
+      foregroundColor: Theme.of(context).colorScheme.onSecondary,
       actions: [
         ...List<Widget>.generate(navigations.length, (int index) {
           return buildNavigationButton(context, navigations[index]);

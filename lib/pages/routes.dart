@@ -1,4 +1,4 @@
-import 'package:casey_boyer_brand_web/pages/projects/main.dart';
+import 'package:casey_boyer_brand_web/pages/projects.dart';
 import 'package:casey_boyer_brand_web/util/string.dart';
 import 'package:flutter/material.dart';
 

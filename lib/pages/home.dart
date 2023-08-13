@@ -63,6 +63,7 @@ class MyHomePage extends StatelessWidget {
                           url:
                               "https://www.linkedin.com/in/casey-boyer-engineer/",
                           imagePath: "images/icons/LI-In-Bug.png",
+                          darkImagePath: "images/icons/LI-In-Bug.png",
                         ),
                         ThemedIconButton(
                           url: "https://github.com/cBiscuitSurprise",

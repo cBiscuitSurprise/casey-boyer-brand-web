@@ -10,6 +10,13 @@ import '../../model/project.dart';
 import '../../pages/app_scaffold.dart';
 import 'bloc/projects_widget_bloc.dart';
 
+Map<String, IconData> availableIcons = {
+  'grid_off': Icons.grid_off,
+  'games': Icons.games,
+  'screenshot_monitor': Icons.screenshot_monitor,
+  'default': Icons.call_missed
+};
+
 class ProjectsWidget extends StatelessWidget {
   const ProjectsWidget({Key? key}) : super(key: key);
 
@@ -54,12 +61,6 @@ class ProjectsWidget extends StatelessWidget {
           // Important: Remove any padding from the ListView.
           // padding: EdgeInsets.zero,
           children: [
-            const SizedBox(
-              height: 56,
-              child: DrawerHeader(
-                child: Text("Drawer header"),
-              ),
-            ),
             ...List<Widget>.generate(state.projects.length, (int index) {
               return buildDrawerListItem(context, index, state.index == index,
                   state.projects[index], desktopMode);
@@ -122,26 +123,37 @@ class ProjectsWidget extends StatelessWidget {
   ) {
     return ListTile(
       hoverColor: Colors.grey,
-      leading: const Icon(
-        Icons.dashboard,
+      leading: Icon(
+        availableIcons[project.icon ?? 'default'] ?? availableIcons['default'],
       ),
       selected: isSelected,
       title: Text(project.name),
-      subtitle: ListView(
-        primary: true,
-        shrinkWrap: true,
-        children: <Widget>[
-          Wrap(
-            spacing: 4.0,
-            runSpacing: 0.0,
-            children: List<Widget>.generate(project.tags.length, (int index) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Chip(label: Text(project.tags[index])),
-              );
-            }).toList(),
-          ),
-        ],
+      subtitle: Padding(
+        padding: const EdgeInsets.only(top: 4),
+        child: ListView(
+          primary: true,
+          shrinkWrap: true,
+          children: <Widget>[
+            Wrap(
+              spacing: 4.0,
+              runSpacing: 0.0,
+              children: List<Widget>.generate(project.tags.length, (int index) {
+                return Chip(
+                  label: Text(
+                    project.tags[index],
+                  ),
+                  labelPadding: EdgeInsets.only(right: 4, left: 4),
+                  padding: EdgeInsets.all(4),
+                  labelStyle: TextStyle(
+                      fontSize: 8,
+                      color: Theme.of(context).colorScheme.onTertiary),
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  backgroundColor: Theme.of(context).colorScheme.tertiary,
+                );
+              }).toList(),
+            ),
+          ],
+        ),
       ),
       onTap: () {
         BlocProvider.of<ProjectsWidgetBloc>(context)

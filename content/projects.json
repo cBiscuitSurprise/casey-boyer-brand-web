@@ -1,5 +1,6 @@
 [
   {
+    "icon": "screenshot_monitor",
     "name": "Portfolio Site (this site)",
     "shortDescription": "Demonstrates AWS, Flutter, and Python.",
     "longDescription": "projects/brand_site.md",
@@ -10,16 +11,18 @@
     ]
   },
   {
-    "name": "Project 2",
-    "shortDescription": "TBD: Another project that demonstrates my abilities",
-    "longDescription": "projects/project_placeholder.md",
+    "icon": "games",
+    "name": "Strate.Go!",
+    "shortDescription": "The game of Stratego implemented in Go",
+    "longDescription": "projects/stratego.md",
     "tags": [
       "Go",
-      "Algorithms",
-      "Data Structures"
+      "Websockets",
+      "CLI"
     ]
   },
   {
+    "icon": "grid_off",
     "name": "Project 3",
     "shortDescription": "TBD: Another project that demonstrates my abilities",
     "longDescription": "projects/project_placeholder.md",
