@@ -6,8 +6,10 @@ I started this project to learn `go`. This is an implementation of the [Stratego
 
 Repository: https://github.com/cBiscuitSurprise/strate-go
 
-<a href="https://github.com/badges/shields/graphs/contributors" alt="Contributors">
-        <img src="https://img.shields.io/github/contributors/badges/shields" /></a>
+* [x] basic health check implementation
+* [ ] basic flutter site integration
+* [ ] WIP gameplay implmentation
+* [ ] gameplay flutter site integration
 
 ### Project Layout
 
@@ -24,11 +26,23 @@ strate-go
 │   ├── errors/    # project errors
 │   ├── game/      # high-level components for the game (board/game)
 │   ├── pieces/    # detailed behavior for th pieces
+│   ├── web/       # gRPC server for the `serve` option
 │   └── strate.go  # main entry points for the game itself
 ├── LICENSE
 ├── main.go
 └── README.md
 ```
+
+### Build
+
+* Bazel: This project is now built using Bazel. It was fun to learn this build system.
+* Jenkins: We've created a Jenkins pipeline that pulls the latest commit and automatically builds the go executable which is pretty awesome!
+    * Next we'll add a stage to deploy this artifact to an artifact repo (probably just S3 for now) and then create another Jenkins pipeline that can eventually pull in all projects on this site and keep it up to date automatically!
+    * So far, just the strate-go pipeline is up and running and it's only doing the build. I'll be adding the test and deploy steps incrementally.
+
+![](resource:images/casey-boyer-brand-strate-go-cd.png)
+
+But first, I want to start actually playing the game here 😄
 
 ## Play
 

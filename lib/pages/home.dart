@@ -40,9 +40,12 @@ class MyHomePage extends StatelessWidget {
                             spreadRadius: 1.0,
                             color: Color.fromARGB(127, 0, 0, 0))
                       ],
-                      image: const DecorationImage(
+                      image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage('images/casey_headshot.jpg'),
+                        image: AssetImage(
+                            (Theme.of(context).brightness == Brightness.dark)
+                                ? 'images/casey_headshot_dark.png'
+                                : 'images/casey_headshot.jpg'),
                       ),
                     ),
                   ),
@@ -71,6 +74,15 @@ class MyHomePage extends StatelessWidget {
                           darkImagePath: "images/icons/github-mark-white.png",
                         ),
                       ]),
+                ),
+                const FractionallySizedBox(
+                  widthFactor: 0.6,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 32, bottom: 16),
+                    child: Text(
+                      "I'm building this site for a few reasons. The primary reason is to provide a sandbox for learning new languages and frameworks. It also serves to supplement my resume and LinkedIn profile during my job search to hopefully showcase my ability to organize and execute software projects. If you're still reading this, (thank you) check out the Projects section above for a few projects that I have worked on or am working on, including this site itself. Here's a few bullet points from my resume:",
+                    ),
+                  ),
                 ),
                 const FractionallySizedBox(
                   widthFactor: 0.6,
