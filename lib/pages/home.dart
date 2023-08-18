@@ -44,8 +44,8 @@ class MyHomePage extends StatelessWidget {
                         fit: BoxFit.cover,
                         image: AssetImage(
                             (Theme.of(context).brightness == Brightness.dark)
-                                ? 'images/casey_headshot_dark.png'
-                                : 'images/casey_headshot.jpg'),
+                                ? 'images/casey_headshot_dark_319x300.png'
+                                : 'images/casey_headshot_319x300.png'),
                       ),
                     ),
                   ),

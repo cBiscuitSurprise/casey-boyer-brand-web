@@ -40,7 +40,7 @@ strate-go
     * Next we'll add a stage to deploy this artifact to an artifact repo (probably just S3 for now) and then create another Jenkins pipeline that can eventually pull in all projects on this site and keep it up to date automatically!
     * So far, just the strate-go pipeline is up and running and it's only doing the build. I'll be adding the test and deploy steps incrementally.
 
-![](resource:images/casey-boyer-brand-strate-go-cd.png)
+![](resource:images/casey-boyer-brand-strate-go-cd_653x1000.png)
 
 But first, I want to start actually playing the game here 😄
 

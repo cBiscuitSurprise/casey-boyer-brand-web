@@ -14,7 +14,7 @@ The `/contact` API invokes a Lambda function which first adds a record to the co
 
 Here's a high level overview diagram of this site.
 
-![](resource:images/casey-boyer-brand-diagram.png)
+![](resource:images/casey-boyer-brand-diagram_834x600.png)
 
 ## Operations
 
