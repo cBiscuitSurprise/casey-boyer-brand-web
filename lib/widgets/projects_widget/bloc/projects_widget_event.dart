@@ -15,3 +15,13 @@ class ProjectsSelectEvent extends ProjectsWidgetEvent {
   ProjectsSelectEvent({required this.index});
 }
 // #endregion data events
+
+// #region status events
+class ProjectsWidgetErrorEvent extends ProjectsWidgetEvent {
+  String message;
+
+  ProjectsWidgetErrorEvent({
+    required this.message,
+  });
+}
+// #endregion status events

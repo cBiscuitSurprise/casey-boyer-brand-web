@@ -15,13 +15,6 @@ class ContactUsSubmitEvent extends ContactUsWidgetEvent {
     this.phone,
     this.message,
   });
-
-  Map<String, String?> toJson() => {
-        'name': name,
-        'email': email,
-        'phone': phone,
-        'message': message,
-      };
 }
 
 class ContactUsCancelEvent extends ContactUsWidgetEvent {}

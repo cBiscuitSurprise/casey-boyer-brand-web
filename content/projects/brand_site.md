@@ -20,4 +20,6 @@ Here's a high level overview diagram of this site.
 
 This is a very low traffic site, but we can still get meaningful metrics. Here's a basic dashboard which highlights some of the traffic metrics. We highlight the 4 Golden Signals: Traffic, Saturaiton, Latency, and Errors. These help to paint a high level picture of this service.
 
-[Dashboard](https://cloudwatch.amazonaws.com/dashboard.html?dashboard=casey-boyer-brand-dev&start=PT72H&end=null&context=eyJSIjoidXMtZWFzdC0xIiwiRCI6ImN3LWRiLTM2NjA2OTYzNjQxNiIsIlUiOiJ1cy1lYXN0LTFfNndFTzdnRExtIiwiQyI6IjNqZ2w5dTluM2Fkbzgzb205aTUyb29uMmdlIiwiSSI6InVzLWVhc3QtMTpkN2M4YjI0ZC0yZjhmLTRlNjYtODIxNC1iM2ZjMzAwMzcxYTkiLCJNIjoiUHVibGljIn0=)
+[Live Dashboard](https://cloudwatch.amazonaws.com/dashboard.html?dashboard=casey-boyer-brand-dev&start=PT72H&end=null&context=eyJSIjoidXMtZWFzdC0xIiwiRCI6ImN3LWRiLTM2NjA2OTYzNjQxNiIsIlUiOiJ1cy1lYXN0LTFfNndFTzdnRExtIiwiQyI6IjNqZ2w5dTluM2Fkbzgzb205aTUyb29uMmdlIiwiSSI6InVzLWVhc3QtMTpkN2M4YjI0ZC0yZjhmLTRlNjYtODIxNC1iM2ZjMzAwMzcxYTkiLCJNIjoiUHVibGljIn0=)
+
+![](resource:images/casey-boyer-brand-dashboard_1369x500.png)

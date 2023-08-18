@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class Project {
+  final String id;
   final String? icon;
   final String name;
   final String? shortDescription;
@@ -8,6 +9,7 @@ class Project {
   final List<String> tags;
 
   Project({
+    required this.id,
     this.icon,
     required this.name,
     this.shortDescription,
@@ -16,7 +18,8 @@ class Project {
   });
 
   Project.fromJson(Map<String, dynamic> json)
-      : icon = json['icon'],
+      : id = json['id'],
+        icon = json['icon'],
         name = json['name'],
         shortDescription = json['shortDescription'],
         longDescription = json['longDescription'],
@@ -24,6 +27,7 @@ class Project {
             const [];
 
   Map<String, dynamic> toJson() => {
+        'id': id,
         'icon': icon,
         'name': name,
         'shortDescription': shortDescription,
@@ -34,5 +38,23 @@ class Project {
   @override
   String toString() {
     return json.encode(toJson());
+  }
+
+  Project copyWith({
+    String? id,
+    String? icon,
+    String? name,
+    String? shortDescription,
+    String? longDescription,
+    List<String>? tags,
+  }) {
+    return Project(
+      id: id ?? this.id,
+      icon: icon ?? this.icon,
+      name: name ?? this.name,
+      shortDescription: shortDescription ?? this.shortDescription,
+      longDescription: longDescription ?? this.longDescription,
+      tags: tags ?? this.tags,
+    );
   }
 }

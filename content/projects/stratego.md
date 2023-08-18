@@ -35,10 +35,11 @@ strate-go
 
 ### Build
 
-* Bazel: This project is now built using Bazel. It was fun to learn this build system.
-* Jenkins: We've created a Jenkins pipeline that pulls the latest commit and automatically builds the go executable which is pretty awesome!
+* **Bazel**: This project is now built using Bazel. It was fun to learn this build system.
+* **Jenkins**: We've created a Jenkins pipeline that pulls the latest commit and automatically builds the go executable which is pretty awesome!
     * Next we'll add a stage to deploy this artifact to an artifact repo (probably just S3 for now) and then create another Jenkins pipeline that can eventually pull in all projects on this site and keep it up to date automatically!
     * So far, just the strate-go pipeline is up and running and it's only doing the build. I'll be adding the test and deploy steps incrementally.
+* **Kubernetes**: This service will eventually run on a kubernetes cluster (overkill, but I'm trying to learn 😄)
 
 ![](resource:images/casey-boyer-brand-strate-go-cd_653x1000.png)
 

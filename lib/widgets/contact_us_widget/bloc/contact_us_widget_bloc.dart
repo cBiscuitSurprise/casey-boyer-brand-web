@@ -1,7 +1,8 @@
 import 'dart:convert';
 
+import 'package:casey_boyer_brand_web/services/casey_boyer_brand_api/casey_boyer_brand_api_service.dart';
+import 'package:casey_boyer_brand_web/services/casey_boyer_brand_api/models/contact_submit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 
 part 'contact_us_widget_event.dart';
@@ -11,7 +12,11 @@ Logger logger = Logger('contact_us_widget_bloc.dart');
 
 class ContactUsWidgetBloc
     extends Bloc<ContactUsWidgetEvent, ContactUsWidgetState> {
-  ContactUsWidgetBloc() : super(const ContactUsWidgetState()) {
+  final CaseyBoyerBrandApiService apiService;
+
+  ContactUsWidgetBloc()
+      : apiService = CaseyBoyerBrandApiService(),
+        super(const ContactUsWidgetState()) {
     // #region data events
     on<ContactUsSubmitEvent>(_handleContactUsSubmitEvent);
     on<ContactUsCancelEvent>(_handleContactUsCancelEvent);
@@ -25,28 +30,26 @@ class ContactUsWidgetBloc
 
   void _handleContactUsSubmitEvent(
       ContactUsSubmitEvent event, Emitter<ContactUsWidgetState> emit) async {
-    String body = jsonEncode(event);
-    logger.fine("Submitting contact info: ${body}");
-
     emit(state.copyWith(
       status: ContactUsWidgetStatus.loading,
     ));
 
-    http.Response response = await http.post(
-        Uri.parse("https://casey.boyer.consulting/api/contact"),
-        body: body,
-        headers: {"Content-Type": "application/json"});
+    var response = await apiService.contact(ContactSubmitRequest(
+      name: event.name,
+      email: event.email,
+      phone: event.phone,
+      message: event.message,
+    ));
 
-    logger.finer(
-        "Form submission response: ${response.statusCode} - ${response.body}");
-
-    if (response.statusCode >= 300) {
-      _handleContactUsWidgetErrorEvent(
-          ContactUsWidgetErrorEvent(message: "failed to submit info"), emit);
-    } else {
+    if (response.success) {
       emit(state.copyWith(
         status: ContactUsWidgetStatus.success,
       ));
+    } else {
+      _handleContactUsWidgetErrorEvent(
+        ContactUsWidgetErrorEvent(message: response.message),
+        emit,
+      );
     }
   }
 

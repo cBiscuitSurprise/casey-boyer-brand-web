@@ -33,23 +33,28 @@ class ProjectsWidget extends StatelessWidget {
       BuildContext context, ProjectsWidgetState state) {
     final bool desktopMode = MediaQuery.of(context).size.width > 500;
 
-    return AppScaffold(
-      drawer: (desktopMode) ? null : buildDrawer(context, state, desktopMode),
-      appBar: AppBarComponent(
-        title: "Projects",
-        navigations: buildRoutes(current: PageRoutes.projects),
-      ),
-      child: Row(
-        children: [
-          (desktopMode) ? buildDrawer(context, state, desktopMode) : null,
-          Expanded(
-            child: Center(
-              child: buildProjectOverview(context, state),
+    if (state.status.isError) {
+      return const AppScaffold(
+          child: Text("an error occured loading the projects widget"));
+    } else {
+      return AppScaffold(
+        drawer: (desktopMode) ? null : buildDrawer(context, state, desktopMode),
+        appBar: AppBarComponent(
+          title: "Projects",
+          navigations: buildRoutes(current: PageRoutes.projects),
+        ),
+        child: Row(
+          children: [
+            (desktopMode) ? buildDrawer(context, state, desktopMode) : null,
+            Expanded(
+              child: Center(
+                child: buildProjectOverview(context, state),
+              ),
             ),
-          ),
-        ].whereType<Widget>().toList(), // filter `null`
-      ),
-    );
+          ].whereType<Widget>().toList(), // filter `null`
+        ),
+      );
+    }
   }
 
   Widget buildDrawer(

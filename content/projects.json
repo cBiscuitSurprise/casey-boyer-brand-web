@@ -1,35 +1,37 @@
-[
-  {
-    "icon": "screenshot_monitor",
-    "name": "Portfolio Site (this site)",
-    "shortDescription": "Demonstrates AWS, Flutter, and Python.",
-    "longDescription": "projects/brand_site.md",
-    "tags": [
-      "AWS",
-      "Flutter",
-      "Python"
-    ]
-  },
-  {
-    "icon": "games",
-    "name": "Strate.Go!",
-    "shortDescription": "The game of Stratego implemented in Go",
-    "longDescription": "projects/stratego.md",
-    "tags": [
-      "Go",
-      "Websockets",
-      "CLI"
-    ]
-  },
-  {
-    "icon": "grid_off",
-    "name": "Project 3",
-    "shortDescription": "TBD: Another project that demonstrates my abilities",
-    "longDescription": "projects/project_placeholder.md",
-    "tags": [
-      "C#",
-      "Bazel",
-      "Kubernetes"
-    ]
-  }
-]
+{
+  "projects": [
+    {
+      "id": "projects/brand_site.md",
+      "icon": "screenshot_monitor",
+      "name": "Portfolio Site (this site)",
+      "shortDescription": "Demonstrates AWS, Flutter, and Python.",
+      "tags": [
+        "AWS",
+        "Flutter",
+        "Python"
+      ]
+    },
+    {
+      "id": "projects/stratego.md",
+      "icon": "games",
+      "name": "Strate.Go!",
+      "shortDescription": "The game of Stratego implemented in Go",
+      "tags": [
+        "Go",
+        "Websockets",
+        "CLI"
+      ]
+    },
+    {
+      "id": "projects/project_placeholder.md",
+      "icon": "grid_off",
+      "name": "Project 3",
+      "shortDescription": "TBD: Another project that demonstrates my abilities",
+      "tags": [
+        "C#",
+        "Bazel",
+        "Kubernetes"
+      ]
+    }
+  ]
+}
