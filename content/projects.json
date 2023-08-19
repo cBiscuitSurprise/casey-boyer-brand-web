@@ -18,8 +18,9 @@
       "shortDescription": "The game of Stratego implemented in Go",
       "tags": [
         "Go",
-        "Websockets",
-        "CLI"
+        "gRPC",
+        "Bazel",
+        "Kubernetes"
       ]
     },
     {
