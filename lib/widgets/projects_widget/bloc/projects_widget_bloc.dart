@@ -1,13 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:casey_boyer_brand_web/services/casey_boyer_brand_api/casey_boyer_brand_api_service.dart';
-import 'package:casey_boyer_brand_web/services/casey_boyer_brand_api/models/projects_details.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 
 import "package:casey_boyer_brand_web/model/project.dart";
+import 'package:casey_boyer_brand_web/services/casey_boyer_brand_api/casey_boyer_brand_api_service.dart';
+import 'package:casey_boyer_brand_web/services/casey_boyer_brand_api/models/projects_details.dart';
 
 part 'projects_widget_event.dart';
 part 'projects_widget_state.dart';
@@ -67,8 +65,6 @@ class ProjectsWidgetBloc
         logger.finer(stackTrace);
         return [];
       });
-
-      logger.info("have projects $projects");
 
       final int? index = (projects.isNotEmpty) ? 0 : null;
 

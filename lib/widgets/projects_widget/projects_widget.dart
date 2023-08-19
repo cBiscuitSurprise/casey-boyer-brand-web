@@ -1,6 +1,7 @@
 import 'package:casey_boyer_brand_web/components/app_bar.dart';
 import 'package:casey_boyer_brand_web/pages/routes.dart';
 import 'package:casey_boyer_brand_web/util/color.dart';
+import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/stratego_game_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -88,7 +89,7 @@ class ProjectsWidget extends StatelessWidget {
             gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          stops: [0.0, 0.2, 0.8, 1.0],
+          stops: const [0.0, 0.2, 0.8, 1.0],
           colors: [
             lighten(Theme.of(context).colorScheme.secondary, 2),
             darken(Theme.of(context).colorScheme.secondary, 2),
@@ -107,13 +108,22 @@ class ProjectsWidget extends StatelessWidget {
     } else {
       return ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 800),
-        child: Markdown(
-          data: state.projects[state.index!].longDescription ?? "",
-          onTapLink: (text, url, title) {
-            if (url != null) {
-              launchUrl(Uri.parse(url));
-            }
-          },
+        child: Column(
+          children: [
+            Expanded(
+              child: Markdown(
+                data: state.projects[state.index!].longDescription ?? "",
+                onTapLink: (text, url, title) {
+                  if (url != null) {
+                    launchUrl(Uri.parse(url));
+                  }
+                },
+              ),
+            ),
+            state.projects[state.index!].name == "Strate.Go!"
+                ? const StrategoGameWidget()
+                : null,
+          ].whereType<Widget>().toList(),
         ),
       );
     }
@@ -147,8 +157,8 @@ class ProjectsWidget extends StatelessWidget {
                   label: Text(
                     project.tags[index],
                   ),
-                  labelPadding: EdgeInsets.only(right: 4, left: 4),
-                  padding: EdgeInsets.all(4),
+                  labelPadding: const EdgeInsets.only(right: 4, left: 4),
+                  padding: const EdgeInsets.all(4),
                   labelStyle: TextStyle(
                       fontSize: 8,
                       color: Theme.of(context).colorScheme.onTertiary),

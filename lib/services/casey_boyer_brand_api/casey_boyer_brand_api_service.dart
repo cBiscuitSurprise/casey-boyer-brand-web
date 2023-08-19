@@ -102,7 +102,7 @@ class CaseyBoyerBrandApiService {
     logger.fine("Fetching strate-go server");
 
     http.Response response = await http.get(
-      urlFor("/strate-go/connect"),
+      urlFor("/projects/strate-go/connect"),
     );
 
     logger.finer(

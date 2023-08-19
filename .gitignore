@@ -2,3 +2,5 @@
 build/
 .venv/
 .tool-versions
+.proto/
+.flutter-plugins-dependencies

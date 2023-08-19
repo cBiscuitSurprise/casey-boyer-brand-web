@@ -11,5 +11,5 @@ class StrateGoConnectResponse {
 
   StrateGoConnectResponse.fromJson(Map<String, dynamic> json)
       : success = true,
-        url = json['name'];
+        url = json['url'];
 }

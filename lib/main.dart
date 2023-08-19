@@ -1,5 +1,6 @@
 import 'package:casey_boyer_brand_web/widgets/app/app_widget.dart';
 import 'package:casey_boyer_brand_web/widgets/app/bloc/app_widget_bloc.dart';
+import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/bloc/stratego_game_widget_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,6 +37,9 @@ class CaseyBoyerBrandApp extends StatelessWidget {
             brightnessModeToggleBloc:
                 BlocProvider.of<ToggleSwitchWidgetBloc>(context),
           ),
+        ),
+        BlocProvider<StrategoGameWidgetBloc>(
+          create: (context) => StrategoGameWidgetBloc(),
         ),
       ],
       child: const AppWidget(),
