@@ -47,4 +47,4 @@ But first, I want to start actually playing the game here 😄
 
 ## Play
 
-Coming Soon! My goal is to get this game playable from right here 👇.
+You've probably already found the game (it should be at the top of this page). For now we've just implemented some very basic pings (they're basically the same now, but eventually the difference will be Deep-Ping will do more in-depth work on the server whereas Ping is very light, "just respond" -- right now they both "just respond")

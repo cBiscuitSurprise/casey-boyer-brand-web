@@ -14,7 +14,11 @@ class StrategoGameWidgetDisconnected extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Center(
         child: Column(children: [
-          const Text("Disconnected. Please connect to the Strate-Go server."),
+          const Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child:
+                Text("Disconnected. Please connect to the Strate-Go server."),
+          ),
           ElevatedButton(
             onPressed: () => BlocProvider.of<StrategoGameWidgetBloc>(context)
                 .add(StrategoGameConnectEvent()),

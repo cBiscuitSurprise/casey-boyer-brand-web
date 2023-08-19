@@ -106,11 +106,13 @@ class ProjectsWidget extends StatelessWidget {
     if (state.index == null) {
       return const Center(child: CircularProgressIndicator());
     } else {
-      return ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 800),
-        child: Column(
-          children: [
-            Expanded(
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          buildProjectWidget(context, state),
+          Expanded(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 800),
               child: Markdown(
                 data: state.projects[state.index!].longDescription ?? "",
                 onTapLink: (text, url, title) {
@@ -120,11 +122,8 @@ class ProjectsWidget extends StatelessWidget {
                 },
               ),
             ),
-            state.projects[state.index!].name == "Strate.Go!"
-                ? const StrategoGameWidget()
-                : null,
-          ].whereType<Widget>().toList(),
-        ),
+          ),
+        ].whereType<Widget>().toList(),
       );
     }
   }
@@ -178,5 +177,37 @@ class ProjectsWidget extends StatelessWidget {
         }
       },
     );
+  }
+
+  Widget? buildProjectWidget(BuildContext context, ProjectsWidgetState state) {
+    switch (state.projects[state.index!].name) {
+      case "Strate.Go!":
+        return Padding(
+          padding: const EdgeInsets.only(top: 16, right: 8, left: 8),
+          child: Container(
+              constraints: const BoxConstraints(maxWidth: 600),
+              padding: const EdgeInsets.only(top: 32, bottom: 32),
+              decoration: const BoxDecoration(boxShadow: [
+                BoxShadow(
+                  color: Colors.black,
+                  offset: Offset(0.1, 0.1),
+                  blurRadius: 0.5,
+                  blurStyle: BlurStyle.outer,
+                ),
+              ]),
+              child: const Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 16, right: 16),
+                    child: Text(
+                        "This just allows us to ping the Stratego server for now. More to come. We're using all the game API paths here (gRPC), just haven't implemented the server components of the game yet. :D"),
+                  ),
+                  StrategoGameWidget(),
+                ],
+              )),
+        );
+      default:
+        return null;
+    }
   }
 }
