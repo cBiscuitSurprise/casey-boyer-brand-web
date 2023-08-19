@@ -183,7 +183,8 @@ class ProjectsWidget extends StatelessWidget {
     switch (state.projects[state.index!].name) {
       case "Strate.Go!":
         return Padding(
-          padding: const EdgeInsets.only(top: 16, right: 8, left: 8),
+          padding:
+              const EdgeInsets.only(top: 16, right: 8, left: 8, bottom: 16),
           child: Container(
               constraints: const BoxConstraints(maxWidth: 600),
               padding: const EdgeInsets.only(top: 32, bottom: 32),
@@ -200,7 +201,7 @@ class ProjectsWidget extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: 16, right: 16),
                     child: Text(
-                        "This just allows us to ping the Stratego server for now. More to come. We're using all the game API paths here (gRPC), just haven't implemented the server components of the game yet. :D"),
+                        "This just allows us to ping the Stratego server for now. We're using all the game API paths (gRPC) and real game server here. I just haven't implemented the server-side components of the game yet. :D"),
                   ),
                   StrategoGameWidget(),
                 ],

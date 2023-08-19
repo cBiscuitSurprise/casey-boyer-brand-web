@@ -7,8 +7,8 @@ I started this project to learn `go`. This is an implementation of the [Stratego
 Repository: https://github.com/cBiscuitSurprise/strate-go
 
 * [x] basic health check implementation
-* [ ] basic flutter site integration
-* [ ] WIP gameplay implmentation
+* [x] basic flutter site integration
+* [ ] [**WIP**] gameplay implementation
 * [ ] gameplay flutter site integration
 
 ### Project Layout
@@ -39,6 +39,7 @@ strate-go
 * **Jenkins**: We've created a Jenkins pipeline that pulls the latest commit and automatically builds the go executable which is pretty awesome!
     * Next we'll add a stage to deploy this artifact to an artifact repo (probably just S3 for now) and then create another Jenkins pipeline that can eventually pull in all projects on this site and keep it up to date automatically!
     * So far, just the strate-go pipeline is up and running and it's only doing the build. I'll be adding the test and deploy steps incrementally.
+        ![](resource:images/stratego_jenkins_pipeline_837x400.png)
 * **Kubernetes**: This service will eventually run on a kubernetes cluster (overkill, but I'm trying to learn 😄)
 
 ![](resource:images/casey-boyer-brand-strate-go-cd_653x1000.png)
