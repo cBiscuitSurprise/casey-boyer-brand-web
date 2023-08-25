@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'dart:js_interop';
+
+import 'package:casey_boyer_brand_web/bloc/user/user_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grpc/service_api.dart';
 import 'package:logging/logging.dart';
@@ -14,15 +18,20 @@ Logger logger = Logger('stratego_game_widget_bloc.dart');
 
 class StrategoGameWidgetBloc
     extends Bloc<StrategoGameWidgetEvent, StrategoGameWidgetState> {
+  final UserBloc userBloc;
   final CaseyBoyerBrandApiService apiService;
   StrateGoService? gameService;
+  StreamSubscription? userStateSubscription;
 
-  StrategoGameWidgetBloc()
+  StrategoGameWidgetBloc({required this.userBloc})
       : apiService = CaseyBoyerBrandApiService(),
-        super(const StrategoGameWidgetState()) {
+        super(StrategoGameWidgetState()) {
+    userStateSubscription = userBloc.stream.listen(_handleUserStateChange);
+
     // #region data events
     on<StrategoGameConnectEvent>(_handleStrategoGameConectEvent);
     on<StrategoGameApiEvent>(_handleStrategoApiEvent);
+    on<StrategoGameUserChangedEvent>(_handleStrategoUserChangedEvent);
     on<StrategoGameDisconnectEvent>(_handleStrategoGameDisconnectEvent);
     // #endregion data events
 
@@ -32,22 +41,45 @@ class StrategoGameWidgetBloc
     // #endregion widget state events
   }
 
+  void _handleUserStateChange(UserState userState) async {
+    logger.fine("Stratego game-widget, user changed ... ${userState.user?.id}");
+    add(StrategoGameUserChangedEvent(userState: userState));
+  }
+
+  void _handleStrategoUserChangedEvent(StrategoGameUserChangedEvent event,
+      Emitter<StrategoGameWidgetState> emit) async {
+    emit(state.copyWith(userState: event.userState));
+    if (event.userState.isUndefinedOrNull ||
+        event.userState!.status.isAnonymous) {
+      add(StrategoGameDisconnectEvent());
+    }
+  }
+
   void _handleStrategoGameConectEvent(StrategoGameConnectEvent event,
       Emitter<StrategoGameWidgetState> emit) async {
     add(StrategoGameWidgetLoadingEvent());
-    var connectResponse = await apiService.strateGoConnect();
+    if (state.userState.isDefinedAndNotNull &&
+        state.userState!.user.isDefinedAndNotNull) {
+      var connectResponse =
+          await apiService.strateGoConnect(user: state.userState!.user!);
 
-    if (connectResponse.url != null) {
-      var url = connectResponse.url!;
-      logger.fine("creating game service for url: $url");
-      gameService = StrateGoService(Uri.parse(url));
-      emit(state.copyWith(
-        status: StrategoGameWidgetStatus.serverUp,
-        serverUrl: connectResponse.url,
-      ));
+      if (connectResponse.url != null) {
+        var url = connectResponse.url!;
+        logger.fine("creating game service for url: $url");
+        gameService = StrateGoService(Uri.parse(url), state.userState!.user!);
+        emit(state.copyWith(
+          status: StrategoGameWidgetStatus.serverUp,
+          serverUrl: connectResponse.url,
+        ));
+      } else {
+        add(StrategoGameWidgetErrorEvent(
+          message: "failed to retrieve game server url (server error)",
+        ));
+      }
     } else {
       add(StrategoGameWidgetErrorEvent(
-        message: "failed to retrieve game server url",
+        message:
+            "failed to retrieve game server url (anonymous user not allowed)",
       ));
     }
   }
@@ -67,7 +99,10 @@ class StrategoGameWidgetBloc
 
       add(StrategoGameWidgetLoadingEvent());
 
-      CallOptions options = CallOptions(metadata: {"x-request-id": requestId});
+      CallOptions options = CallOptions(metadata: {
+        "x-request-id": requestId,
+        "x-stratego-user-id": state.userState?.user?.id ?? "anon"
+      });
       String? message;
       DateTime? timestamp;
       if (event.api == "Ping") {

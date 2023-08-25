@@ -1,3 +1,4 @@
+import 'package:casey_boyer_brand_web/bloc/user/user_bloc.dart';
 import 'package:casey_boyer_brand_web/widgets/app/app_widget.dart';
 import 'package:casey_boyer_brand_web/widgets/app/bloc/app_widget_bloc.dart';
 import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/bloc/stratego_game_widget_bloc.dart';
@@ -29,6 +30,13 @@ class CaseyBoyerBrandApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<UserBloc>(
+          create: (context) {
+            var bloc = UserBloc();
+            bloc.add(UserIdentifyEvent());
+            return bloc;
+          },
+        ),
         BlocProvider<ToggleSwitchWidgetBloc>(
           create: (context) => ToggleSwitchWidgetBloc(),
         ),
@@ -39,7 +47,8 @@ class CaseyBoyerBrandApp extends StatelessWidget {
           ),
         ),
         BlocProvider<StrategoGameWidgetBloc>(
-          create: (context) => StrategoGameWidgetBloc(),
+          create: (context) => StrategoGameWidgetBloc(
+              userBloc: BlocProvider.of<UserBloc>(context)),
         ),
       ],
       child: const AppWidget(),

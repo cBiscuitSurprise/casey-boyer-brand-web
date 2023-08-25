@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:casey_boyer_brand_web/model/user.dart';
 import 'package:casey_boyer_brand_web/services/casey_boyer_brand_api/models/projects_details.dart';
 import 'package:casey_boyer_brand_web/services/casey_boyer_brand_api/models/projects_list.dart';
 import 'package:logging/logging.dart';
@@ -98,7 +99,7 @@ class CaseyBoyerBrandApiService {
 
   // #region Stratego
   Future<StrateGoConnectResponse> strateGoConnect(
-      [StrateGoConnectRequest? request]) async {
+      {required User user, StrateGoConnectRequest? request}) async {
     logger.fine("Fetching strate-go server");
 
     http.Response response = await http.get(

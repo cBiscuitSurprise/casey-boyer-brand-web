@@ -5,6 +5,12 @@ class StrategoGameWidgetEvent {}
 // #region data events
 class StrategoGameConnectEvent extends StrategoGameWidgetEvent {}
 
+class StrategoGameUserChangedEvent extends StrategoGameWidgetEvent {
+  final UserState? userState;
+
+  StrategoGameUserChangedEvent({required this.userState});
+}
+
 class StrategoGameApiEvent extends StrategoGameWidgetEvent {
   String api;
 

@@ -55,7 +55,6 @@ class ProjectsWidgetBloc
         response.projects.map((p) async {
           var response = await apiService
               .getProjectDetails(ProjectGetDetailsRequest(project: p));
-          logger.info("HERE");
           return response.project;
         }).toList(),
         eagerError: true,
