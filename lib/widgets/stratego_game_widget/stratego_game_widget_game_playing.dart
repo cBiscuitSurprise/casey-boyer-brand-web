@@ -1,14 +1,13 @@
 import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/bloc/stratego_game_widget_bloc.dart';
+import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/util/api_button.dart';
+import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/util/goto_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class StrategoGameWidgetPlaying extends StatelessWidget {
-  final Uri url;
+class StrategoGameWidgetGamePlaying extends StatelessWidget {
   final String? message;
-
-  const StrategoGameWidgetPlaying({
+  const StrategoGameWidgetGamePlaying({
     Key? key,
-    required this.url,
     this.message,
   }) : super(key: key);
 
@@ -26,14 +25,23 @@ class StrategoGameWidgetPlaying extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8),
             child: Text(message ?? "..."),
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
+          const Padding(
+            padding: EdgeInsets.only(right: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildGameButton(context, "Ping", "Ping"),
-                buildGameButton(context, "DeepPing", "Deep Ping"),
-                // buildGameButton(context, "LongPing", "Interactive Ping"),
+                ApiButton(
+                  api: StrategoGameWidgetApi.ping,
+                  text: "Ping",
+                ),
+                ApiButton(
+                  api: StrategoGameWidgetApi.deepPing,
+                  text: "Deep Ping",
+                ),
+                GotoButton(
+                  goto: StrategoGameWidgetStatus.gameOver,
+                  text: "GoTo: Game Over",
+                ),
               ],
             ),
           ),
@@ -46,17 +54,6 @@ class StrategoGameWidgetPlaying extends StatelessWidget {
             ),
           ),
         ]),
-      ),
-    );
-  }
-
-  Widget buildGameButton(BuildContext context, String api, String text) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8),
-      child: ElevatedButton(
-        onPressed: () => BlocProvider.of<StrategoGameWidgetBloc>(context)
-            .add(StrategoGameApiEvent(api: api)),
-        child: Text(text),
       ),
     );
   }

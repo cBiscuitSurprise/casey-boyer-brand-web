@@ -1,5 +1,11 @@
 part of 'stratego_game_widget_bloc.dart';
 
+enum StrategoGameWidgetApi {
+  ping,
+  deepPing,
+  newGame,
+}
+
 class StrategoGameWidgetEvent {}
 
 // #region data events
@@ -12,7 +18,7 @@ class StrategoGameUserChangedEvent extends StrategoGameWidgetEvent {
 }
 
 class StrategoGameApiEvent extends StrategoGameWidgetEvent {
-  String api;
+  StrategoGameWidgetApi api;
 
   StrategoGameApiEvent({required this.api});
 }
@@ -21,6 +27,12 @@ class StrategoGameDisconnectEvent extends StrategoGameWidgetEvent {}
 // #endregion data events
 
 // #region widget state events
+class StrategoGameGotoEvent extends StrategoGameWidgetEvent {
+  StrategoGameWidgetStatus goto;
+
+  StrategoGameGotoEvent({required this.goto});
+}
+
 class StrategoGameWidgetLoadingEvent extends StrategoGameWidgetEvent {
   final int progress;
 

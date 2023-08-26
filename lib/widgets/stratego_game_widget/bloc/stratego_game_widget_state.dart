@@ -1,11 +1,27 @@
 part of 'stratego_game_widget_bloc.dart';
 
-enum StrategoGameWidgetStatus { initial, serverDown, serverUp, error, loading }
+enum StrategoGameWidgetStatus {
+  initial,
+  serverDown,
+  serverUp,
+  lobby,
+  gameMatching,
+  gamePlanning,
+  gamePlaying,
+  gameOver,
+  error,
+  loading
+}
 
 extension StrategoGameWidgetStatusX on StrategoGameWidgetStatus {
   bool get isInitial => this == StrategoGameWidgetStatus.initial;
   bool get isServerDown => this == StrategoGameWidgetStatus.serverDown;
   bool get isServerUp => this == StrategoGameWidgetStatus.serverUp;
+  bool get isLobby => this == StrategoGameWidgetStatus.lobby;
+  bool get isGameMatching => this == StrategoGameWidgetStatus.gameMatching;
+  bool get isGamePlanning => this == StrategoGameWidgetStatus.gamePlanning;
+  bool get isGamePlaying => this == StrategoGameWidgetStatus.gamePlaying;
+  bool get isGameOver => this == StrategoGameWidgetStatus.gameOver;
   bool get isError => this == StrategoGameWidgetStatus.error;
   bool get isLoading => this == StrategoGameWidgetStatus.loading;
 }
@@ -26,10 +42,6 @@ class StrategoGameWidgetState {
     this.latestTimestamp,
     this.userState,
   });
-
-  // set userState(UserState? userState) {
-  //   this.userState = userState;
-  // }
 
   StrategoGameWidgetState copyWith({
     StrategoGameWidgetStatus? status,

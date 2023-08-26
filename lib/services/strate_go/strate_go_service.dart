@@ -33,4 +33,8 @@ class StrateGoService {
   Future<Pong> deepPing(Empty request, {CallOptions? options}) async {
     return await grpcClient.deepPing(request, options: options);
   }
+
+  Future<void> newGame(Empty request, {CallOptions? options}) async {
+    // TODO: implement
+  }
 }

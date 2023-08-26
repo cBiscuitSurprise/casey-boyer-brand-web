@@ -1,11 +1,18 @@
+import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/stratego_game_widget_game_matching.dart';
+import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/stratego_game_widget_game_over.dart';
+import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/stratego_game_widget_game_planning.dart';
+import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/stratego_game_widget_game_playing.dart';
+import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/stratego_game_widget_lobby.dart';
 import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/stratego_game_widget_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logging/logging.dart';
 
 import 'bloc/stratego_game_widget_bloc.dart';
 import 'stratego_game_widget_disconnected.dart';
 import 'stratego_game_widget_loading.dart';
-import 'stratego_game_widget_playing.dart';
+
+Logger logger = Logger('stratego_game_widget.dart');
 
 class StrategoGameWidget extends StatelessWidget {
   const StrategoGameWidget({Key? key}) : super(key: key);
@@ -19,24 +26,32 @@ class StrategoGameWidget extends StatelessWidget {
 
   Widget resolveWidgetForState(
       BuildContext context, StrategoGameWidgetState state) {
-    if (state.status.isServerDown) {
-      return const StrategoGameWidgetDisconnected();
-    } else if (state.status.isServerUp) {
-      if (state.serverUrl == null) {
-        BlocProvider.of<StrategoGameWidgetBloc>(context).add(
-            StrategoGameWidgetErrorEvent(
-                message: "Can't connect to server (invalid url)."));
-      }
-      return StrategoGameWidgetPlaying(
-        url: Uri.parse(state.serverUrl ?? "https://invalid.com/"),
-        message: state.latestMessage,
-      );
-    } else if (state.status.isLoading) {
-      return const StrategoGameWidgetLoading();
-    } else if (state.status.isError) {
-      return const StrategoGameWidgetError();
-    } else {
-      return const SizedBox();
+    switch (state.status) {
+      case StrategoGameWidgetStatus.serverDown:
+        return const StrategoGameWidgetDisconnected();
+      case StrategoGameWidgetStatus.serverUp:
+        // resolve next state -- if active game-id is non null,
+        // then figure out the game-state (planning, playing, over)
+        // else lobby
+        BlocProvider.of<StrategoGameWidgetBloc>(context)
+            .add(StrategoGameGotoEvent(goto: StrategoGameWidgetStatus.lobby));
+        return const StrategoGameWidgetLoading();
+      case StrategoGameWidgetStatus.lobby:
+        return const StrategoGameWidgetLobby();
+      case StrategoGameWidgetStatus.gameMatching:
+        return const StrategoGameWidgetGameMatching();
+      case StrategoGameWidgetStatus.gamePlanning:
+        return const StrategoGameWidgetGamePlanning();
+      case StrategoGameWidgetStatus.gamePlaying:
+        return StrategoGameWidgetGamePlaying(message: state.latestMessage);
+      case StrategoGameWidgetStatus.gameOver:
+        return const StrategoGameWidgetGameOver();
+      case StrategoGameWidgetStatus.loading:
+        return const StrategoGameWidgetLoading();
+      case StrategoGameWidgetStatus.error:
+        return const StrategoGameWidgetError();
+      default:
+        return const SizedBox();
     }
   }
 }

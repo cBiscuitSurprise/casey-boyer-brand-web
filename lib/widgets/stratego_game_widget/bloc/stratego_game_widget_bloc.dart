@@ -36,6 +36,7 @@ class StrategoGameWidgetBloc
     // #endregion data events
 
     // #region widget state events
+    on<StrategoGameGotoEvent>(_handleStrategoGameGotoEvent);
     on<StrategoGameWidgetLoadingEvent>(_handleStrategoGameWidgetLoadingEvent);
     on<StrategoGameWidgetErrorEvent>(_handleStrategoGameWidgetErrorEvent);
     // #endregion widget state events
@@ -97,7 +98,8 @@ class StrategoGameWidgetBloc
         return;
       }
 
-      add(StrategoGameWidgetLoadingEvent());
+      var originalStatus = state.status;
+      _setLoading(emit);
 
       CallOptions options = CallOptions(metadata: {
         "x-request-id": requestId,
@@ -105,21 +107,29 @@ class StrategoGameWidgetBloc
       });
       String? message;
       DateTime? timestamp;
-      if (event.api == "Ping") {
+      if (event.api == StrategoGameWidgetApi.ping) {
         var response =
             await gameService?.ping(Empty.create(), options: options);
         message = response?.message;
         timestamp = response?.timestamp.toDateTime();
-      } else if (event.api == "DeepPing") {
+        emit(state.copyWith(
+            status: originalStatus,
+            latestMessage: message,
+            latestTimestamp: timestamp));
+      } else if (event.api == StrategoGameWidgetApi.deepPing) {
         var response = await gameService?.deepPing(Empty(), options: options);
         message = response?.message;
         timestamp = response?.timestamp.toDateTime();
+        emit(state.copyWith(
+            status: originalStatus,
+            latestMessage: message,
+            latestTimestamp: timestamp));
+      } else if (event.api == StrategoGameWidgetApi.newGame) {
+        emit(state.copyWith(
+            status: StrategoGameWidgetStatus.gameMatching,
+            latestMessage: message,
+            latestTimestamp: timestamp));
       }
-
-      emit(state.copyWith(
-          status: StrategoGameWidgetStatus.serverUp,
-          latestMessage: message,
-          latestTimestamp: timestamp));
     } catch (e) {
       add(StrategoGameWidgetErrorEvent(message: "$e\nRequest ID: $requestId"));
     }
@@ -128,7 +138,7 @@ class StrategoGameWidgetBloc
   void _handleStrategoGameDisconnectEvent(StrategoGameDisconnectEvent event,
       Emitter<StrategoGameWidgetState> emit) async {
     try {
-      add(StrategoGameWidgetLoadingEvent());
+      _setLoading(emit);
       if (gameService != null) {
         logger.fine("disconnecting ...");
         logger.finer("shutting down grpc channel ...");
@@ -143,6 +153,11 @@ class StrategoGameWidgetBloc
     } catch (e) {
       add(StrategoGameWidgetErrorEvent(message: e.toString()));
     }
+  }
+
+  void _handleStrategoGameGotoEvent(StrategoGameGotoEvent event,
+      Emitter<StrategoGameWidgetState> emit) async {
+    emit(state.copyWith(status: event.goto));
   }
 
   void _handleStrategoGameWidgetLoadingEvent(

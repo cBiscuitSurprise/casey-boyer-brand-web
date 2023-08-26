@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:html';
-import 'dart:io';
 import 'dart:js_interop';
 
 import 'package:casey_boyer_brand_web/model/user.dart';
