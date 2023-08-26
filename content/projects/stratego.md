@@ -2,6 +2,12 @@
 
 I started this project to learn `go`. This is an implementation of the [Stratego](https://en.m.wikipedia.org/wiki/Stratego) game and supports playing both in the terminal and via this website.
 
+## Architecture
+
+This app is now running in a kubernetes cluster. It's currently setup to run 2 instances of the application and is automatically deployed via Jenkins. We currently have an Envoy reverse proxy in front of the cluster (for legacy reasons).
+
+![](resource:images/strate-go-architecture.png)
+
 ## Code
 
 Repository: https://github.com/cBiscuitSurprise/strate-go
@@ -40,7 +46,7 @@ strate-go
     * Next we'll add a stage to deploy this artifact to an artifact repo (probably just S3 for now) and then create another Jenkins pipeline that can eventually pull in all projects on this site and keep it up to date automatically!
     * So far, just the strate-go pipeline is up and running and it's only doing the build. I'll be adding the test and deploy steps incrementally.
         ![](resource:images/stratego_jenkins_pipeline_837x400.png)
-* **Kubernetes**: This service will eventually run on a kubernetes cluster (overkill, but I'm trying to learn 😄)
+* **Kubernetes**: This service runs in kubernetes.
 
 ![](resource:images/casey-boyer-brand-strate-go-cd_653x1000.png)
 
