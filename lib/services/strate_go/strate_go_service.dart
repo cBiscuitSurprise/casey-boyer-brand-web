@@ -3,7 +3,7 @@ import 'package:logging/logging.dart';
 
 import 'package:grpc/grpc_or_grpcweb.dart';
 
-import 'package:casey_boyer_brand_web/services/strate_go/generated/strate.pbgrpc.dart';
+import 'package:casey_boyer_brand_web/services/strate_go/generated/strate.v1.pbgrpc.dart';
 import 'generated/google/protobuf/empty.pb.dart';
 
 Logger logger = Logger('casey_boyer_brand_api_service.dart');
