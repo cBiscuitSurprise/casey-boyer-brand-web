@@ -115,7 +115,8 @@ class ProjectsWidget extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      buildProjectWidget(context, state),
+                      buildProjectWidget(
+                          context, state, viewportConstraints.maxWidth),
                       ConstrainedBox(
                         constraints: const BoxConstraints(maxWidth: 800),
                         child: Markdown(
@@ -188,7 +189,8 @@ class ProjectsWidget extends StatelessWidget {
     );
   }
 
-  Widget? buildProjectWidget(BuildContext context, ProjectsWidgetState state) {
+  Widget? buildProjectWidget(
+      BuildContext context, ProjectsWidgetState state, double maxWidth) {
     switch (state.projects[state.index!].name) {
       case "Strate.Go!":
         return Padding(
@@ -197,22 +199,33 @@ class ProjectsWidget extends StatelessWidget {
           child: Container(
               constraints: const BoxConstraints(maxWidth: 600),
               padding: const EdgeInsets.only(top: 32, bottom: 32),
-              decoration: const BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(0.1, 0.1),
-                  blurRadius: 0.5,
-                  blurStyle: BlurStyle.outer,
-                ),
-              ]),
-              child: const Column(
+              decoration: BoxDecoration(
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black,
+                    offset: Offset(0.1, 0.1),
+                    blurRadius: 0.5,
+                    blurStyle: BlurStyle.outer,
+                  ),
+                ],
+                color: Theme.of(context).colorScheme.background,
+              ),
+              child: Column(
                 children: [
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(left: 16, right: 16),
                     child: Text(
                         "At this point, we can randomly generate a board. Next, we'll try to enable moving these pieces around."),
                   ),
-                  StrategoGameWidget(),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: maxWidth,
+                      ),
+                      child: const StrategoGameWidget(),
+                    ),
+                  )
                 ],
               )),
         );
