@@ -32,7 +32,10 @@ class StrategoGameWidgetState {
   final String? serverUrl;
   final String? latestMessage;
   final DateTime? latestTimestamp;
-  UserState? userState;
+
+  final UserState? userState;
+
+  final Game? game;
 
   StrategoGameWidgetState({
     this.status = StrategoGameWidgetStatus.serverDown,
@@ -41,6 +44,7 @@ class StrategoGameWidgetState {
     this.latestMessage,
     this.latestTimestamp,
     this.userState,
+    this.game,
   });
 
   StrategoGameWidgetState copyWith({
@@ -50,6 +54,7 @@ class StrategoGameWidgetState {
     String? latestMessage,
     DateTime? latestTimestamp,
     UserState? userState,
+    Game? game,
   }) {
     return StrategoGameWidgetState(
       status: status ?? this.status,
@@ -58,6 +63,7 @@ class StrategoGameWidgetState {
       latestMessage: latestMessage ?? this.latestMessage,
       latestTimestamp: latestTimestamp ?? this.latestTimestamp,
       userState: userState ?? this.userState,
+      game: game ?? this.game,
     );
   }
 }

@@ -103,29 +103,38 @@ class ProjectsWidget extends StatelessWidget {
   }
 
   Widget buildProjectOverview(BuildContext context, ProjectsWidgetState state) {
-    if (state.index == null) {
-      return const Center(child: CircularProgressIndicator());
-    } else {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          buildProjectWidget(context, state),
-          Expanded(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 800),
-              child: Markdown(
-                data: state.projects[state.index!].longDescription ?? "",
-                onTapLink: (text, url, title) {
-                  if (url != null) {
-                    launchUrl(Uri.parse(url));
-                  }
-                },
-              ),
-            ),
-          ),
-        ].whereType<Widget>().toList(),
-      );
-    }
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints viewportConstraints) {
+        return (state.index == null)
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: viewportConstraints.maxHeight,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      buildProjectWidget(context, state),
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 800),
+                        child: Markdown(
+                          data: state.projects[state.index!].longDescription ??
+                              "",
+                          onTapLink: (text, url, title) {
+                            if (url != null) {
+                              launchUrl(Uri.parse(url));
+                            }
+                          },
+                          shrinkWrap: true,
+                        ),
+                      ),
+                    ].whereType<Widget>().toList(),
+                  ),
+                ),
+              );
+      },
+    );
   }
 
   Widget buildDrawerListItem(
@@ -201,7 +210,7 @@ class ProjectsWidget extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: 16, right: 16),
                     child: Text(
-                        "This just allows us to ping the Stratego server for now. We're using all the game API paths (gRPC) and real game server here. I just haven't implemented the server-side components of the game yet. :D"),
+                        "At this point, we can randomly generate a board. Next, we'll try to enable moving these pieces around."),
                   ),
                   StrategoGameWidget(),
                 ],

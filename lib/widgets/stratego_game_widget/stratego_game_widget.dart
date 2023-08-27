@@ -43,7 +43,10 @@ class StrategoGameWidget extends StatelessWidget {
       case StrategoGameWidgetStatus.gamePlanning:
         return const StrategoGameWidgetGamePlanning();
       case StrategoGameWidgetStatus.gamePlaying:
-        return StrategoGameWidgetGamePlaying(message: state.latestMessage);
+        return StrategoGameWidgetGamePlaying(
+          message: state.latestMessage,
+          game: state.game,
+        );
       case StrategoGameWidgetStatus.gameOver:
         return const StrategoGameWidgetGameOver();
       case StrategoGameWidgetStatus.loading:

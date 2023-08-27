@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:js_interop';
 
 import 'package:casey_boyer_brand_web/bloc/user/user_bloc.dart';
+import 'package:casey_boyer_brand_web/services/strate_go/generated/strate.v1.pb.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grpc/service_api.dart';
 import 'package:logging/logging.dart';
@@ -125,10 +126,14 @@ class StrategoGameWidgetBloc
             latestMessage: message,
             latestTimestamp: timestamp));
       } else if (event.api == StrategoGameWidgetApi.newGame) {
+        var response = await gameService?.newGame(
+          NewGameRequest.create(),
+          options: options,
+        );
         emit(state.copyWith(
-            status: StrategoGameWidgetStatus.gameMatching,
-            latestMessage: message,
-            latestTimestamp: timestamp));
+          status: _resolveGameState(response?.game),
+          game: response?.game,
+        ));
       }
     } catch (e) {
       add(StrategoGameWidgetErrorEvent(message: "$e\nRequest ID: $requestId"));
@@ -170,6 +175,27 @@ class StrategoGameWidgetBloc
       Emitter<StrategoGameWidgetState> emit) async {
     logger.severe(event.message);
     _setError(emit, event.message);
+  }
+
+  StrategoGameWidgetStatus _resolveGameState(Game? game) {
+    if (game == null) {
+      return StrategoGameWidgetStatus.lobby;
+    }
+
+    switch (game.state) {
+      case GameState.GameState_SETUP:
+        return StrategoGameWidgetStatus.gameMatching;
+      case GameState.GameState_PLAN:
+        return StrategoGameWidgetStatus.gamePlanning;
+      case GameState.GameState_PLAY:
+        return StrategoGameWidgetStatus.gamePlaying;
+      case GameState.GameState_END:
+        return StrategoGameWidgetStatus.gameOver;
+      case GameState.GameState_ERROR:
+        return StrategoGameWidgetStatus.error;
+      default:
+        return StrategoGameWidgetStatus.lobby;
+    }
   }
 
   void _setLoading(Emitter<StrategoGameWidgetState> emit) {

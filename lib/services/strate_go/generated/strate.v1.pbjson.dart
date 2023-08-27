@@ -146,15 +146,18 @@ const Square$json = {
   '1': 'Square',
   '2': [
     {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    {'1': 'piece', '3': 2, '4': 1, '5': 11, '6': '.stratego.v1.Piece', '10': 'piece'},
+    {'1': 'piece', '3': 2, '4': 1, '5': 11, '6': '.stratego.v1.Piece', '9': 0, '10': 'piece', '17': true},
     {'1': 'playable', '3': 3, '4': 1, '5': 8, '10': 'playable'},
+  ],
+  '8': [
+    {'1': '_piece'},
   ],
 };
 
 /// Descriptor for `Square`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List squareDescriptor = $convert.base64Decode(
-    'CgZTcXVhcmUSDgoCaWQYASABKAlSAmlkEigKBXBpZWNlGAIgASgLMhIuc3RyYXRlZ28udjEuUG'
-    'llY2VSBXBpZWNlEhoKCHBsYXlhYmxlGAMgASgIUghwbGF5YWJsZQ==');
+    'CgZTcXVhcmUSDgoCaWQYASABKAlSAmlkEi0KBXBpZWNlGAIgASgLMhIuc3RyYXRlZ28udjEuUG'
+    'llY2VIAFIFcGllY2WIAQESGgoIcGxheWFibGUYAyABKAhSCHBsYXlhYmxlQggKBl9waWVjZQ==');
 
 @$core.Deprecated('Use boardDescriptor instead')
 const Board$json = {

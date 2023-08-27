@@ -1,5 +1,5 @@
 import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/bloc/stratego_game_widget_bloc.dart';
-import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/util/api_button.dart';
+import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/components/api_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,7 +19,7 @@ class StrategoGameWidgetLobby extends StatelessWidget {
             child: Text("Lobby"),
           ),
           const Padding(
-            padding: EdgeInsets.only(right: 8),
+            padding: EdgeInsets.zero,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

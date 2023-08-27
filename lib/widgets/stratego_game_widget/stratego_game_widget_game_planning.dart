@@ -1,5 +1,5 @@
 import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/bloc/stratego_game_widget_bloc.dart';
-import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/util/goto_button.dart';
+import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/components/goto_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,7 +19,7 @@ class StrategoGameWidgetGamePlanning extends StatelessWidget {
             child: Text("Plan your game..."),
           ),
           const Padding(
-            padding: EdgeInsets.only(right: 8),
+            padding: EdgeInsets.zero,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
