@@ -128,6 +128,7 @@ class ProjectsWidget extends StatelessWidget {
                             }
                           },
                           shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
                         ),
                       ),
                     ].whereType<Widget>().toList(),
