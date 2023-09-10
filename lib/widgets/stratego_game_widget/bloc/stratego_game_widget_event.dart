@@ -4,6 +4,10 @@ enum StrategoGameWidgetApi {
   ping,
   deepPing,
   newGame,
+  listGames,
+  getGame,
+  planGame,
+  playGame,
 }
 
 class StrategoGameWidgetEvent {}
@@ -21,6 +25,49 @@ class StrategoGameApiEvent extends StrategoGameWidgetEvent {
   StrategoGameWidgetApi api;
 
   StrategoGameApiEvent({required this.api});
+}
+
+class StrategoGameRequestMoveEvent extends StrategoGameApiEvent {
+  models.Position from;
+  models.Position to;
+
+  StrategoGameRequestMoveEvent({required this.from, required this.to})
+      : super(api: StrategoGameWidgetApi.playGame);
+}
+
+class StrategoGamePieceAttackedEvent extends StrategoGameWidgetEvent {
+  final int attackerRank;
+  final int attackeeRank;
+  final List<String> removedPieceIds;
+
+  StrategoGamePieceAttackedEvent({
+    required this.attackerRank,
+    required this.attackeeRank,
+    required this.removedPieceIds,
+  });
+}
+
+class StrategoGamePieceMovedEvent extends StrategoGameWidgetEvent {
+  int nonce;
+  String pieceId;
+  models.Position? from;
+  models.Position? to;
+
+  StrategoGamePieceMovedEvent({
+    required this.nonce,
+    required this.pieceId,
+    this.from,
+    this.to,
+  });
+
+  StrategoGamePieceMovedEvent.fromApiPieceMovedEvent(
+      strategopb.PieceMovedEvent event)
+      : nonce = event.nonce,
+        pieceId = event.pieceId,
+        from = event.hasFrom()
+            ? models.Position.fromProtoPosition(event.from)
+            : null,
+        to = event.hasTo() ? models.Position.fromProtoPosition(event.to) : null;
 }
 
 class StrategoGameDisconnectEvent extends StrategoGameWidgetEvent {}

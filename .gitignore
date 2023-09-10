@@ -4,3 +4,4 @@ build/
 .tool-versions
 .proto/
 .flutter-plugins-dependencies
+.vscode/

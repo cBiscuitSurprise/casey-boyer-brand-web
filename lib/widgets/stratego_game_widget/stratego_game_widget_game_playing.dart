@@ -1,5 +1,7 @@
 import 'package:casey_boyer_brand_web/services/strate_go/generated/strate.v1.pb.dart'
     as stratego;
+import 'package:casey_boyer_brand_web/services/strate_go/models/all.dart'
+    as models;
 import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/bloc/stratego_game_widget_bloc.dart';
 import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/components/game_board.dart';
 import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/components/api_button.dart';
@@ -9,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StrategoGameWidgetGamePlaying extends StatelessWidget {
   final String? message;
-  final stratego.Game? game;
+  final models.Game? game;
 
   const StrategoGameWidgetGamePlaying({
     Key? key,
@@ -35,10 +37,10 @@ class StrategoGameWidgetGamePlaying extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
-                child: (game == null || !game!.hasBoard())
+                child: (game == null || game!.board == null)
                     ? const Text("No board")
                     : GameBoardWidget(
-                        board: game!.board,
+                        board: game!.board!,
                       ),
               ),
               const Padding(

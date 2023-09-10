@@ -38,6 +38,30 @@ class StrateGoClient extends $grpc.Client {
       '/stratego.v1.StrateGo/NewGame',
       ($1.NewGameRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.NewGameResponse.fromBuffer(value));
+  static final _$listGames = $grpc.ClientMethod<$1.ListGamesRequest, $1.ListGamesResponse>(
+      '/stratego.v1.StrateGo/ListGames',
+      ($1.ListGamesRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.ListGamesResponse.fromBuffer(value));
+  static final _$getGame = $grpc.ClientMethod<$1.GetGameRequest, $1.GetGameResponse>(
+      '/stratego.v1.StrateGo/GetGame',
+      ($1.GetGameRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.GetGameResponse.fromBuffer(value));
+  static final _$planGame = $grpc.ClientMethod<$1.PlanGameRequest, $1.PlanGameResponse>(
+      '/stratego.v1.StrateGo/PlanGame',
+      ($1.PlanGameRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.PlanGameResponse.fromBuffer(value));
+  static final _$playGame = $grpc.ClientMethod<$1.PlayGameRequest, $1.PlayGameResponse>(
+      '/stratego.v1.StrateGo/PlayGame',
+      ($1.PlayGameRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.PlayGameResponse.fromBuffer(value));
+  static final _$playGameWeb = $grpc.ClientMethod<$1.PlayGameRequest, $1.PlayGameWebResponse>(
+      '/stratego.v1.StrateGo/PlayGameWeb',
+      ($1.PlayGameRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.PlayGameWebResponse.fromBuffer(value));
+  static final _$playGameWebListener = $grpc.ClientMethod<$1.PlayGameWebListenerRequest, $1.PlayGameResponse>(
+      '/stratego.v1.StrateGo/PlayGameWebListener',
+      ($1.PlayGameWebListenerRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.PlayGameResponse.fromBuffer(value));
 
   StrateGoClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -59,6 +83,30 @@ class StrateGoClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$1.NewGameResponse> newGame($1.NewGameRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$newGame, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.ListGamesResponse> listGames($1.ListGamesRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$listGames, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.GetGameResponse> getGame($1.GetGameRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getGame, request, options: options);
+  }
+
+  $grpc.ResponseStream<$1.PlanGameResponse> planGame($async.Stream<$1.PlanGameRequest> request, {$grpc.CallOptions? options}) {
+    return $createStreamingCall(_$planGame, request, options: options);
+  }
+
+  $grpc.ResponseStream<$1.PlayGameResponse> playGame($async.Stream<$1.PlayGameRequest> request, {$grpc.CallOptions? options}) {
+    return $createStreamingCall(_$playGame, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.PlayGameWebResponse> playGameWeb($1.PlayGameRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$playGameWeb, request, options: options);
+  }
+
+  $grpc.ResponseStream<$1.PlayGameResponse> playGameWebListener($1.PlayGameWebListenerRequest request, {$grpc.CallOptions? options}) {
+    return $createStreamingCall(_$playGameWebListener, $async.Stream.fromIterable([request]), options: options);
   }
 }
 
@@ -95,6 +143,48 @@ abstract class StrateGoServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $1.NewGameRequest.fromBuffer(value),
         ($1.NewGameResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.ListGamesRequest, $1.ListGamesResponse>(
+        'ListGames',
+        listGames_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $1.ListGamesRequest.fromBuffer(value),
+        ($1.ListGamesResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.GetGameRequest, $1.GetGameResponse>(
+        'GetGame',
+        getGame_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $1.GetGameRequest.fromBuffer(value),
+        ($1.GetGameResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.PlanGameRequest, $1.PlanGameResponse>(
+        'PlanGame',
+        planGame,
+        true,
+        true,
+        ($core.List<$core.int> value) => $1.PlanGameRequest.fromBuffer(value),
+        ($1.PlanGameResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.PlayGameRequest, $1.PlayGameResponse>(
+        'PlayGame',
+        playGame,
+        true,
+        true,
+        ($core.List<$core.int> value) => $1.PlayGameRequest.fromBuffer(value),
+        ($1.PlayGameResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.PlayGameRequest, $1.PlayGameWebResponse>(
+        'PlayGameWeb',
+        playGameWeb_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $1.PlayGameRequest.fromBuffer(value),
+        ($1.PlayGameWebResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.PlayGameWebListenerRequest, $1.PlayGameResponse>(
+        'PlayGameWebListener',
+        playGameWebListener_Pre,
+        false,
+        true,
+        ($core.List<$core.int> value) => $1.PlayGameWebListenerRequest.fromBuffer(value),
+        ($1.PlayGameResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.Pong> ping_Pre($grpc.ServiceCall call, $async.Future<$0.Empty> request) async {
@@ -109,8 +199,30 @@ abstract class StrateGoServiceBase extends $grpc.Service {
     return newGame(call, await request);
   }
 
+  $async.Future<$1.ListGamesResponse> listGames_Pre($grpc.ServiceCall call, $async.Future<$1.ListGamesRequest> request) async {
+    return listGames(call, await request);
+  }
+
+  $async.Future<$1.GetGameResponse> getGame_Pre($grpc.ServiceCall call, $async.Future<$1.GetGameRequest> request) async {
+    return getGame(call, await request);
+  }
+
+  $async.Future<$1.PlayGameWebResponse> playGameWeb_Pre($grpc.ServiceCall call, $async.Future<$1.PlayGameRequest> request) async {
+    return playGameWeb(call, await request);
+  }
+
+  $async.Stream<$1.PlayGameResponse> playGameWebListener_Pre($grpc.ServiceCall call, $async.Future<$1.PlayGameWebListenerRequest> request) async* {
+    yield* playGameWebListener(call, await request);
+  }
+
   $async.Future<$1.Pong> ping($grpc.ServiceCall call, $0.Empty request);
   $async.Future<$1.Pong> deepPing($grpc.ServiceCall call, $0.Empty request);
   $async.Stream<$1.Pong> longPing($grpc.ServiceCall call, $async.Stream<$1.LongPingRequest> request);
   $async.Future<$1.NewGameResponse> newGame($grpc.ServiceCall call, $1.NewGameRequest request);
+  $async.Future<$1.ListGamesResponse> listGames($grpc.ServiceCall call, $1.ListGamesRequest request);
+  $async.Future<$1.GetGameResponse> getGame($grpc.ServiceCall call, $1.GetGameRequest request);
+  $async.Stream<$1.PlanGameResponse> planGame($grpc.ServiceCall call, $async.Stream<$1.PlanGameRequest> request);
+  $async.Stream<$1.PlayGameResponse> playGame($grpc.ServiceCall call, $async.Stream<$1.PlayGameRequest> request);
+  $async.Future<$1.PlayGameWebResponse> playGameWeb($grpc.ServiceCall call, $1.PlayGameRequest request);
+  $async.Stream<$1.PlayGameResponse> playGameWebListener($grpc.ServiceCall call, $1.PlayGameWebListenerRequest request);
 }

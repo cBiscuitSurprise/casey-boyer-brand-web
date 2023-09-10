@@ -5,7 +5,7 @@ REPO_DIR=$TEMP_DIR/repo
 PROTO_SOURCE_DIR=$REPO_DIR/api/proto
 
 REPO=https://github.com/cBiscuitSurprise/strate-go.git
-BRANCH=main
+BRANCH=${BRANCH:-main}
 
 GOOGLE_PROTOS_REPO=https://github.com/protocolbuffers/protobuf.git
 GOOGLE_PROTOS_REPO_DIR=.proto/google/repo
@@ -22,7 +22,7 @@ then
   git clone $REPO --branch $BRANCH --single-branch $REPO_DIR
 else
   pushd $REPO_DIR
-  git pull --rebase
+  git pull --rebase origin $BRANCH
   popd
 fi
 

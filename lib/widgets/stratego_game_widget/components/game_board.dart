@@ -1,12 +1,14 @@
 import 'package:casey_boyer_brand_web/services/strate_go/generated/strate.v1.pb.dart'
     as stratego;
+import 'package:casey_boyer_brand_web/services/strate_go/models/position.dart';
 import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/components/game_board_square.dart';
 import 'package:flutter/widgets.dart';
 
 class GameBoardWidget extends StatelessWidget {
   final stratego.Board board;
+  final GlobalKey _draggableKey = GlobalKey();
 
-  const GameBoardWidget({Key? key, required this.board}) : super(key: key);
+  GameBoardWidget({Key? key, required this.board}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,18 +16,29 @@ class GameBoardWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 8),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [for (var row in board.rows) _buildRow(context, row)],
+        children: [
+          for (final (rnx, row) in board.rows.indexed)
+            _buildRow(context, rnx, row)
+        ],
       ),
     );
   }
 
-  Widget _buildRow(BuildContext context, stratego.Row row) {
+  Widget _buildRow(BuildContext context, int rnx, stratego.Row row) {
     return Row(
-      children: [for (var square in row.columns) _buildSquare(context, square)],
+      children: [
+        for (final (cnx, square) in row.columns.indexed)
+          _buildSquare(context, Position(rnx, cnx), square)
+      ],
     );
   }
 
-  Widget _buildSquare(BuildContext context, stratego.Square square) {
-    return GameBoardSquareWidget(square: square);
+  Widget _buildSquare(
+      BuildContext context, Position position, stratego.Square square) {
+    return GameBoardSquareWidget(
+      square: square,
+      position: position,
+      dragKey: _draggableKey,
+    );
   }
 }

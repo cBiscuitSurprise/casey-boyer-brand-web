@@ -35,7 +35,7 @@ class StrategoGameWidgetState {
 
   final UserState? userState;
 
-  final Game? game;
+  final models.Game? game;
 
   StrategoGameWidgetState({
     this.status = StrategoGameWidgetStatus.serverDown,
@@ -54,7 +54,7 @@ class StrategoGameWidgetState {
     String? latestMessage,
     DateTime? latestTimestamp,
     UserState? userState,
-    Game? game,
+    models.Game? game,
   }) {
     return StrategoGameWidgetState(
       status: status ?? this.status,
