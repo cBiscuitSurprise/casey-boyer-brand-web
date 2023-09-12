@@ -2,8 +2,10 @@ import 'package:casey_boyer_brand_web/services/strate_go/generated/strate.v1.pb.
     as stratego;
 import 'package:casey_boyer_brand_web/services/strate_go/models/position.dart';
 import 'package:casey_boyer_brand_web/util/color.dart';
+import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/bloc/stratego_game_widget_bloc.dart';
 import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/components/game_pieces/draggable_piece.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'dragging_game_piece.dart';
 
@@ -35,6 +37,10 @@ class GamePieceGenericWidget extends StatelessWidget {
         name: name,
         piece: piece,
       ),
+      onDragStarted: () => BlocProvider.of<StrategoGameWidgetBloc>(context)
+          .add(StrategoGamePickPieceEvent(from: position)),
+      onDragEnd: (details) => BlocProvider.of<StrategoGameWidgetBloc>(context)
+          .add(StrategoGamePieceDroppedEvent()),
       child: Container(
         decoration: BoxDecoration(
           color: lighten(color, 20),

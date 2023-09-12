@@ -46,6 +46,8 @@ class StrategoGameWidget extends StatelessWidget {
         return StrategoGameWidgetGamePlaying(
           message: state.latestMessage,
           game: state.game,
+          maskGame: state.pieceInMotion != null,
+          validPlacements: state.validPlacements,
         );
       case StrategoGameWidgetStatus.gameOver:
         return const StrategoGameWidgetGameOver();

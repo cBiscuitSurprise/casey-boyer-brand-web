@@ -12,6 +12,19 @@ class Position {
     return "Position($row, $column)";
   }
 
+  @override
+  int get hashCode => Object.hash(row, column);
+
+  @override
+  bool operator ==(Object other) {
+    if (other is Position) {
+      return row == other.row && column == other.column;
+    } else if (other is strategopb.Position) {
+      return row == other.row && column == other.column;
+    }
+    return false;
+  }
+
   Position.fromProtoPosition(strategopb.Position p)
       : row = p.row,
         column = p.column;

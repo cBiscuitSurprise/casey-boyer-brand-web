@@ -21,10 +21,21 @@ class StrategoGameUserChangedEvent extends StrategoGameWidgetEvent {
   StrategoGameUserChangedEvent({required this.userState});
 }
 
+class StrategoGamePieceDroppedEvent extends StrategoGameWidgetEvent {
+  StrategoGamePieceDroppedEvent() : super();
+}
+
 class StrategoGameApiEvent extends StrategoGameWidgetEvent {
   StrategoGameWidgetApi api;
 
   StrategoGameApiEvent({required this.api});
+}
+
+class StrategoGamePickPieceEvent extends StrategoGameApiEvent {
+  models.Position from;
+
+  StrategoGamePickPieceEvent({required this.from})
+      : super(api: StrategoGameWidgetApi.playGame);
 }
 
 class StrategoGameRequestMoveEvent extends StrategoGameApiEvent {

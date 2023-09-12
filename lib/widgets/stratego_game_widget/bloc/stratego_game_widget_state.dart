@@ -26,6 +26,8 @@ extension StrategoGameWidgetStatusX on StrategoGameWidgetStatus {
   bool get isLoading => this == StrategoGameWidgetStatus.loading;
 }
 
+const undefPosition = models.Position(-1, -1);
+
 class StrategoGameWidgetState {
   final StrategoGameWidgetStatus status;
   final String? error;
@@ -36,6 +38,8 @@ class StrategoGameWidgetState {
   final UserState? userState;
 
   final models.Game? game;
+  final List<models.Position> validPlacements;
+  final models.Position? pieceInMotion;
 
   StrategoGameWidgetState({
     this.status = StrategoGameWidgetStatus.serverDown,
@@ -45,6 +49,8 @@ class StrategoGameWidgetState {
     this.latestTimestamp,
     this.userState,
     this.game,
+    this.pieceInMotion,
+    this.validPlacements = const [],
   });
 
   StrategoGameWidgetState copyWith({
@@ -55,6 +61,8 @@ class StrategoGameWidgetState {
     DateTime? latestTimestamp,
     UserState? userState,
     models.Game? game,
+    List<models.Position>? validPlacements,
+    models.Position? pieceInMotion = undefPosition,
   }) {
     return StrategoGameWidgetState(
       status: status ?? this.status,
@@ -64,6 +72,9 @@ class StrategoGameWidgetState {
       latestTimestamp: latestTimestamp ?? this.latestTimestamp,
       userState: userState ?? this.userState,
       game: game ?? this.game,
+      validPlacements: validPlacements ?? this.validPlacements,
+      pieceInMotion:
+          pieceInMotion == undefPosition ? this.pieceInMotion : pieceInMotion,
     );
   }
 }

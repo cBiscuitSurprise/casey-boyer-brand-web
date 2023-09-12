@@ -1,5 +1,3 @@
-import 'package:casey_boyer_brand_web/services/strate_go/generated/strate.v1.pb.dart'
-    as stratego;
 import 'package:casey_boyer_brand_web/services/strate_go/models/all.dart'
     as models;
 import 'package:casey_boyer_brand_web/widgets/stratego_game_widget/bloc/stratego_game_widget_bloc.dart';
@@ -12,11 +10,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class StrategoGameWidgetGamePlaying extends StatelessWidget {
   final String? message;
   final models.Game? game;
+  final bool maskGame;
+  final List<models.Position> validPlacements;
 
   const StrategoGameWidgetGamePlaying({
     Key? key,
     this.message,
     this.game,
+    this.maskGame = false,
+    this.validPlacements = const [],
   }) : super(key: key);
 
   @override
@@ -41,6 +43,8 @@ class StrategoGameWidgetGamePlaying extends StatelessWidget {
                     ? const Text("No board")
                     : GameBoardWidget(
                         board: game!.board!,
+                        maskBoard: maskGame,
+                        validPlacements: validPlacements,
                       ),
               ),
               const Padding(

@@ -370,6 +370,7 @@ final $typed_data.Uint8List playGameRequestDescriptor = $convert.base64Decode(
 const PlayGameResponse$json = {
   '1': 'PlayGameResponse',
   '2': [
+    {'1': 'gameId', '3': 1, '4': 1, '5': 9, '10': 'gameId'},
     {'1': 'redPlayerActive', '3': 2, '4': 1, '5': 8, '10': 'redPlayerActive'},
     {'1': 'validPlacements', '3': 3, '4': 3, '5': 11, '6': '.stratego.v1.Position', '10': 'validPlacements'},
     {'1': 'pieceMoved', '3': 4, '4': 1, '5': 11, '6': '.stratego.v1.PieceMovedEvent', '10': 'pieceMoved'},
@@ -379,10 +380,11 @@ const PlayGameResponse$json = {
 
 /// Descriptor for `PlayGameResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List playGameResponseDescriptor = $convert.base64Decode(
-    'ChBQbGF5R2FtZVJlc3BvbnNlEigKD3JlZFBsYXllckFjdGl2ZRgCIAEoCFIPcmVkUGxheWVyQW'
-    'N0aXZlEj8KD3ZhbGlkUGxhY2VtZW50cxgDIAMoCzIVLnN0cmF0ZWdvLnYxLlBvc2l0aW9uUg92'
-    'YWxpZFBsYWNlbWVudHMSPAoKcGllY2VNb3ZlZBgEIAEoCzIcLnN0cmF0ZWdvLnYxLlBpZWNlTW'
-    '92ZWRFdmVudFIKcGllY2VNb3ZlZBIUCgVlcnJvchgQIAEoCVIFZXJyb3I=');
+    'ChBQbGF5R2FtZVJlc3BvbnNlEhYKBmdhbWVJZBgBIAEoCVIGZ2FtZUlkEigKD3JlZFBsYXllck'
+    'FjdGl2ZRgCIAEoCFIPcmVkUGxheWVyQWN0aXZlEj8KD3ZhbGlkUGxhY2VtZW50cxgDIAMoCzIV'
+    'LnN0cmF0ZWdvLnYxLlBvc2l0aW9uUg92YWxpZFBsYWNlbWVudHMSPAoKcGllY2VNb3ZlZBgEIA'
+    'EoCzIcLnN0cmF0ZWdvLnYxLlBpZWNlTW92ZWRFdmVudFIKcGllY2VNb3ZlZBIUCgVlcnJvchgQ'
+    'IAEoCVIFZXJyb3I=');
 
 @$core.Deprecated('Use playGameWebResponseDescriptor instead')
 const PlayGameWebResponse$json = {
@@ -390,13 +392,15 @@ const PlayGameWebResponse$json = {
   '2': [
     {'1': 'gameId', '3': 1, '4': 1, '5': 9, '10': 'gameId'},
     {'1': 'error', '3': 2, '4': 1, '5': 9, '10': 'error'},
+    {'1': 'validPlacements', '3': 3, '4': 3, '5': 11, '6': '.stratego.v1.Position', '10': 'validPlacements'},
   ],
 };
 
 /// Descriptor for `PlayGameWebResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List playGameWebResponseDescriptor = $convert.base64Decode(
     'ChNQbGF5R2FtZVdlYlJlc3BvbnNlEhYKBmdhbWVJZBgBIAEoCVIGZ2FtZUlkEhQKBWVycm9yGA'
-    'IgASgJUgVlcnJvcg==');
+    'IgASgJUgVlcnJvchI/Cg92YWxpZFBsYWNlbWVudHMYAyADKAsyFS5zdHJhdGVnby52MS5Qb3Np'
+    'dGlvblIPdmFsaWRQbGFjZW1lbnRz');
 
 @$core.Deprecated('Use playGameWebListenerRequestDescriptor instead')
 const PlayGameWebListenerRequest$json = {

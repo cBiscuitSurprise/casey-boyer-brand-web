@@ -1213,12 +1213,16 @@ class PlayGameRequest extends $pb.GeneratedMessage {
 
 class PlayGameResponse extends $pb.GeneratedMessage {
   factory PlayGameResponse({
+    $core.String? gameId,
     $core.bool? redPlayerActive,
     $core.Iterable<Position>? validPlacements,
     PieceMovedEvent? pieceMoved,
     $core.String? error,
   }) {
     final $result = create();
+    if (gameId != null) {
+      $result.gameId = gameId;
+    }
     if (redPlayerActive != null) {
       $result.redPlayerActive = redPlayerActive;
     }
@@ -1238,6 +1242,7 @@ class PlayGameResponse extends $pb.GeneratedMessage {
   factory PlayGameResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PlayGameResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'stratego.v1'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'gameId', protoName: 'gameId')
     ..aOB(2, _omitFieldNames ? '' : 'redPlayerActive', protoName: 'redPlayerActive')
     ..pc<Position>(3, _omitFieldNames ? '' : 'validPlacements', $pb.PbFieldType.PM, protoName: 'validPlacements', subBuilder: Position.create)
     ..aOM<PieceMovedEvent>(4, _omitFieldNames ? '' : 'pieceMoved', protoName: 'pieceMoved', subBuilder: PieceMovedEvent.create)
@@ -1266,35 +1271,44 @@ class PlayGameResponse extends $pb.GeneratedMessage {
   static PlayGameResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PlayGameResponse>(create);
   static PlayGameResponse? _defaultInstance;
 
+  @$pb.TagNumber(1)
+  $core.String get gameId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set gameId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasGameId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearGameId() => clearField(1);
+
   @$pb.TagNumber(2)
-  $core.bool get redPlayerActive => $_getBF(0);
+  $core.bool get redPlayerActive => $_getBF(1);
   @$pb.TagNumber(2)
-  set redPlayerActive($core.bool v) { $_setBool(0, v); }
+  set redPlayerActive($core.bool v) { $_setBool(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasRedPlayerActive() => $_has(0);
+  $core.bool hasRedPlayerActive() => $_has(1);
   @$pb.TagNumber(2)
   void clearRedPlayerActive() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.List<Position> get validPlacements => $_getList(1);
+  $core.List<Position> get validPlacements => $_getList(2);
 
   @$pb.TagNumber(4)
-  PieceMovedEvent get pieceMoved => $_getN(2);
+  PieceMovedEvent get pieceMoved => $_getN(3);
   @$pb.TagNumber(4)
   set pieceMoved(PieceMovedEvent v) { setField(4, v); }
   @$pb.TagNumber(4)
-  $core.bool hasPieceMoved() => $_has(2);
+  $core.bool hasPieceMoved() => $_has(3);
   @$pb.TagNumber(4)
   void clearPieceMoved() => clearField(4);
   @$pb.TagNumber(4)
-  PieceMovedEvent ensurePieceMoved() => $_ensure(2);
+  PieceMovedEvent ensurePieceMoved() => $_ensure(3);
 
   @$pb.TagNumber(16)
-  $core.String get error => $_getSZ(3);
+  $core.String get error => $_getSZ(4);
   @$pb.TagNumber(16)
-  set error($core.String v) { $_setString(3, v); }
+  set error($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(16)
-  $core.bool hasError() => $_has(3);
+  $core.bool hasError() => $_has(4);
   @$pb.TagNumber(16)
   void clearError() => clearField(16);
 }
@@ -1303,6 +1317,7 @@ class PlayGameWebResponse extends $pb.GeneratedMessage {
   factory PlayGameWebResponse({
     $core.String? gameId,
     $core.String? error,
+    $core.Iterable<Position>? validPlacements,
   }) {
     final $result = create();
     if (gameId != null) {
@@ -1310,6 +1325,9 @@ class PlayGameWebResponse extends $pb.GeneratedMessage {
     }
     if (error != null) {
       $result.error = error;
+    }
+    if (validPlacements != null) {
+      $result.validPlacements.addAll(validPlacements);
     }
     return $result;
   }
@@ -1320,6 +1338,7 @@ class PlayGameWebResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PlayGameWebResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'stratego.v1'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'gameId', protoName: 'gameId')
     ..aOS(2, _omitFieldNames ? '' : 'error')
+    ..pc<Position>(3, _omitFieldNames ? '' : 'validPlacements', $pb.PbFieldType.PM, protoName: 'validPlacements', subBuilder: Position.create)
     ..hasRequiredFields = false
   ;
 
@@ -1361,6 +1380,9 @@ class PlayGameWebResponse extends $pb.GeneratedMessage {
   $core.bool hasError() => $_has(1);
   @$pb.TagNumber(2)
   void clearError() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.List<Position> get validPlacements => $_getList(2);
 }
 
 class PlayGameWebListenerRequest extends $pb.GeneratedMessage {

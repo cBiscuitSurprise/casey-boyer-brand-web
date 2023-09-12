@@ -42,6 +42,7 @@ class StrategoGameWidgetBloc
     // #region data events
     on<StrategoGameConnectEvent>(_handleStrategoGameConectEvent);
     on<StrategoGameApiEvent>(_handleStrategoApiEvent);
+    on<StrategoGamePieceDroppedEvent>(_handleStrategoPieceDroppedEvent);
     on<StrategoGamePieceMovedEvent>(_handleStrategoPieceMovedEvent);
     on<StrategoGameUserChangedEvent>(_handleStrategoUserChangedEvent);
     on<StrategoGameDisconnectEvent>(_handleStrategoGameDisconnectEvent);
@@ -153,6 +154,13 @@ class StrategoGameWidgetBloc
     }
   }
 
+  void _handleStrategoPieceDroppedEvent(StrategoGamePieceDroppedEvent event,
+      Emitter<StrategoGameWidgetState> emit) {
+    emit(state.copyWith(
+      pieceInMotion: null,
+    ));
+  }
+
   void _handleStrategoApiEvent(
       StrategoGameApiEvent event, Emitter<StrategoGameWidgetState> emit) async {
     String requestId = nanoid();
@@ -201,6 +209,38 @@ class StrategoGameWidgetBloc
           status: _resolveGameState(game),
           game: game,
         ));
+      } else if (event is StrategoGamePickPieceEvent) {
+        if (gameService != null) {
+          _checkPlayGameStream(options);
+          logger.fine("requesting pick piece: ${event.from}");
+
+          var response = await gameService!.playGameWeb(
+            PlayGameRequest(
+              gameId: state.game!.id,
+              command: PlayGameRequestCommand.PlayGameRequestCommand_PICK_PIECE,
+              selectedPiecePosition: event.from.toProtoPosition(),
+            ),
+            options: options,
+          );
+
+          if (response.hasError() && response.error.isNotEmpty) {
+            logger.warning("pick-piece error: ${response.error}");
+          }
+
+          var validPlacements = response.validPlacements
+              .map((p) => models.Position.fromProtoPosition(p))
+              .toList();
+
+          validPlacements.add(event.from);
+
+          logger.finest("pick-piece valid-placements: $validPlacements");
+
+          emit(state.copyWith(
+            status: originalStatus,
+            validPlacements: validPlacements,
+            pieceInMotion: event.from,
+          ));
+        }
       } else if (event is StrategoGameRequestMoveEvent) {
         if (gameService != null) {
           _checkPlayGameStream(options);
@@ -216,9 +256,14 @@ class StrategoGameWidgetBloc
             options: options,
           );
 
-          logger.finest(response.error);
+          if (response.hasError() && response.error.isNotEmpty) {
+            logger.warning("move-piece error: ${response.error}");
+          }
 
-          emit(state.copyWith(status: originalStatus));
+          emit(state.copyWith(
+            status: originalStatus,
+            pieceInMotion: null,
+          ));
         }
       }
     } catch (e) {
